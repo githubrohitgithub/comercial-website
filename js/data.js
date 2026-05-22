@@ -8,9 +8,7 @@ const HERO_SLIDES = [
 const GALLERY_PHOTOS = [
   { src: "assets/images/photo00.jpg", alt: "Gurushree Hospital" },
   { src: "assets/images/photo02.jpg", alt: "Hospital view" },
-  { src: "assets/images/photo05.jpg", alt: "Hospital building" },
-  { src: "assets/images/facilities_page.jpg", alt: "Hospital facilities" },
-  { src: "assets/images/hospital_page.jpg", alt: "Gurushree multi-speciality hospital" }
+  { src: "assets/images/photo05.jpg", alt: "Hospital building" }
 ];
 
 const FACILITIES = [
