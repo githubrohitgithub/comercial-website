@@ -1472,6 +1472,8 @@ main, .header, .footer, .emergency-float, .marquee { position: relative; z-index
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
+  .hero__slide { transition: none; opacity: 1; }
+  .hero__slide:not(:first-child) { display: none; }
   .orb, .marquee__track, .hero__float-card, .emergency-float__pulse { animation: none; }
   * { transition-duration: 0.01ms !important; }
 }
