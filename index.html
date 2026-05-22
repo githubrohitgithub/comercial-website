@@ -1,0 +1,2225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rohit Pachori — Senior Software Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #050810;
+      --surface: #0d1117;
+      --surface2: #161b25;
+      --border: rgba(99,179,255,0.12);
+      --accent: #4f9eff;
+      --accent2: #a78bfa;
+      --accent3: #34d399;
+      --accent4: #fb923c;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --glow: rgba(79,158,255,0.15);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ── CANVAS ── */
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 1rem 2.5rem;
+      background: rgba(5,8,16,0.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-family: 'JetBrains Mono', monospace;
+      flex-shrink: 0;
+    }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface2);
+      cursor: pointer;
+      z-index: 110;
+      flex-shrink: 0;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      background: rgba(5, 8, 16, 0.6);
+      backdrop-filter: blur(4px);
+    }
+
+    .nav-backdrop.visible { display: block; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      list-style: none;
+      flex-wrap: nowrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: color 0.2s;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-cta {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      padding: 0.45rem 1.2rem;
+      border-radius: 6px;
+      font-weight: 600 !important;
+      color: var(--bg) !important;
+      -webkit-text-fill-color: var(--bg) !important;
+      white-space: nowrap;
+      flex-shrink: 0;
+      text-align: center;
+    }
+
+    /* ── SECTIONS ── */
+    section { position: relative; z-index: 1; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+    }
+
+    .hero-name {
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #fff 30%, var(--accent) 60%, var(--accent2) 90%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeSlideDown 0.9s ease 0.1s both;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-title {
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      font-weight: 400;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      animation: fadeSlideDown 1s ease 0.2s both;
+    }
+
+    .hero-title span {
+      color: var(--accent2);
+      font-weight: 600;
+    }
+
+    .hero-desc {
+      max-width: 650px;
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin: 0 auto 2.5rem;
+      animation: fadeSlideDown 1s ease 0.3s both;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      justify-content: center;
+      margin-bottom: 3rem;
+      animation: fadeSlideDown 1s ease 0.4s both;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeSlideDown 1s ease 0.5s both;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 30px rgba(79,158,255,0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 50px rgba(79,158,255,0.5);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-color: rgba(52,211,153,0.35);
+      color: var(--accent3);
+    }
+
+    .btn-download:hover {
+      border-color: var(--accent3) !important;
+      background: rgba(52,211,153,0.08) !important;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      background: rgba(79,158,255,0.05);
+    }
+
+    /* ── SCROLL INDICATOR ── */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      animation: fadeSlideDown 1s ease 0.8s both;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: scrollPulse 2s infinite;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section-title span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .about-text p strong {
+      color: var(--text);
+    }
+
+    .about-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .mini-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .mini-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .mini-card-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .mini-card-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .mini-card-desc {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    /* ── AI SECTION ── */
+    #ai {
+      padding: 6rem 2rem;
+      background: linear-gradient(180deg, transparent, rgba(79,158,255,0.03), transparent);
+    }
+
+    .ai-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .ai-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .ai-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .ai-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .ai-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(79,158,255,0.3);
+    }
+
+    .ai-card:hover::before { opacity: 1; }
+
+    .ai-card-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .ai-card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .ai-card-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .ai-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .ai-tool-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(79,158,255,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(79,158,255,0.2);
+    }
+
+    /* ── SKILLS ── */
+    #skills {
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .skill-group {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      transition: border-color 0.2s;
+    }
+
+    .skill-group:hover { border-color: rgba(79,158,255,0.3); }
+
+    .skill-group-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .tags-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.3rem 0.7rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+
+    .tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(79,158,255,0.05);
+    }
+
+    /* ── PROJECTS ── */
+    #projects {
+      padding: 6rem 2rem;
+      background: linear-gradient(180deg, transparent, rgba(167,139,250,0.03), transparent);
+    }
+
+    .projects-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .projects-grid {
+      display: grid;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: start;
+      min-width: 0;
+    }
+
+    .project-card > div { min-width: 0; overflow-wrap: break-word; }
+
+    .project-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      background: radial-gradient(ellipse at top left, var(--card-glow, rgba(79,158,255,0.05)), transparent 60%);
+      pointer-events: none;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(79,158,255,0.3);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .project-number {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-name {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .project-tagline {
+      font-size: 0.9rem;
+      color: var(--accent2);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-features {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-features li {
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .project-features li::before {
+      content: '▸';
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 0.05em;
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .tech-tag {
+      background: rgba(79,158,255,0.08);
+      border: 1px solid rgba(79,158,255,0.2);
+      color: var(--accent);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .project-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+    }
+
+    .badge-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      background: linear-gradient(135deg, rgba(79,158,255,0.15), rgba(167,139,250,0.15));
+      border: 1px solid var(--border);
+      margin-bottom: 0.5rem;
+    }
+
+    .status-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.25rem 0.7rem;
+      border-radius: 100px;
+      background: rgba(52,211,153,0.1);
+      color: var(--accent3);
+      border: 1px solid rgba(52,211,153,0.25);
+      white-space: nowrap;
+    }
+
+    .countries-badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.25rem 0.7rem;
+      border-radius: 100px;
+      background: rgba(251,146,60,0.1);
+      color: var(--accent4);
+      border: 1px solid rgba(251,146,60,0.25);
+      white-space: nowrap;
+    }
+
+    .smartq-platform {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, rgba(79,158,255,0.08), rgba(167,139,250,0.06));
+      border: 1px solid rgba(79,158,255,0.22);
+      border-radius: 16px;
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .smartq-platform-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+
+    .smartq-platform-label a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(79,158,255,0.35);
+    }
+
+    .smartq-platform-label a:hover { color: #fff; border-color: var(--accent); }
+
+    .smartq-platform-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+      max-width: 72ch;
+    }
+
+    .smartq-platform-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .smartq-platform-tags span {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.3rem 0.65rem;
+      border-radius: 100px;
+      background: rgba(79,158,255,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(79,158,255,0.22);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .about-text a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(79,158,255,0.35);
+    }
+
+    .about-text a:hover { color: #fff; border-color: var(--accent); }
+
+    .timeline-company a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(79,158,255,0.35);
+    }
+
+    .timeline-company a:hover { color: var(--accent); }
+
+    /* ── EXPERIENCE ── */
+    #experience {
+      padding: 6rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .timeline {
+      position: relative;
+      margin-top: 3rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 1.5rem;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+
+    .timeline-item {
+      padding-left: 4.5rem;
+      position: relative;
+      margin-bottom: 3rem;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 1rem;
+      top: 0.4rem;
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(79,158,255,0.5);
+      border: 2px solid var(--bg);
+    }
+
+    .timeline-date {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.4rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .timeline-company {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+
+    .timeline-role {
+      font-size: 0.85rem;
+      color: var(--accent2);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .timeline-points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .timeline-points li {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.65;
+      padding-left: 1.35rem;
+      position: relative;
+    }
+
+    .timeline-points li::before {
+      content: '→';
+      color: var(--accent);
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .timeline-points li strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      padding: 6rem 2rem;
+      text-align: center;
+      background: linear-gradient(180deg, transparent, rgba(79,158,255,0.04));
+    }
+
+    .contact-inner {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .contact-desc {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin: 1.5rem 0 3rem;
+      line-height: 1.7;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      color: var(--text);
+      transition: all 0.2s;
+      background: var(--surface);
+    }
+
+    .contact-link:hover {
+      border-color: var(--accent);
+      background: rgba(79,158,255,0.08);
+      transform: translateY(-2px);
+    }
+
+    .contact-link svg {
+      width: 18px; height: 18px;
+      fill: var(--accent);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.8rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeSlideDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(79,158,255,0.3); }
+      50% { box-shadow: 0 0 40px rgba(79,158,255,0.6); }
+    }
+
+    /* ── REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Tall cards (mini projects) — never clip content on mobile GPUs */
+    .project-card.mini-projects-card {
+      overflow: visible;
+      grid-template-columns: 1fr;
+    }
+
+    .project-card.mini-projects-card .project-badge {
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    @media (min-width: 901px) {
+      .project-card.mini-projects-card {
+        grid-template-columns: 1fr auto;
+      }
+      .project-card.mini-projects-card .project-badge {
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: flex-start;
+        margin-top: 0;
+      }
+    }
+
+    /* ── TYPEWRITER ── */
+    .typewriter {
+      display: inline;
+      border-right: 2px solid var(--accent);
+      animation: blink 0.8s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    .mini-projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1200px) and (min-width: 1025px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.72rem; }
+    }
+
+    @media (max-width: 1024px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-toggle { display: flex; }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: min(300px, 88vw);
+        height: 100dvh;
+        height: 100vh;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 5.5rem 1.5rem 2rem;
+        background: rgba(5, 8, 16, 0.98);
+        border-left: 1px solid var(--border);
+        box-shadow: -8px 0 32px rgba(0, 0, 0, 0.4);
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        overflow-y: auto;
+        z-index: 100;
+      }
+
+      .nav-links.open { transform: translateX(0); }
+
+      .nav-links li { width: 100%; }
+
+      .nav-links a {
+        display: block;
+        padding: 0.9rem 0;
+        font-size: 0.9rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-links li:last-child a { border-bottom: none; }
+
+      .nav-cta {
+        margin-top: 0.75rem;
+        padding: 0.75rem 1.25rem;
+        border-radius: 8px;
+      }
+
+      body.nav-open { overflow: hidden; }
+    }
+
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .ai-grid { grid-template-columns: 1fr 1fr; }
+      .project-card { grid-template-columns: 1fr; }
+      .project-badge { flex-direction: row; align-items: center; }
+      .mini-projects-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .ai-grid { grid-template-columns: 1fr; }
+      .about-cards { grid-template-columns: 1fr; }
+      .project-features { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.5rem; }
+
+      /* project cards */
+      .project-card {
+        padding: 1.5rem;
+        grid-template-columns: 1fr;
+        word-break: break-word;
+      }
+      .project-name { font-size: 1.15rem; }
+      .project-badge { flex-direction: row; flex-wrap: wrap; gap: 0.5rem; }
+      .badge-icon { width: 48px; height: 48px; font-size: 1.4rem; border-radius: 12px; }
+
+      /* skills */
+      .skills-grid { grid-template-columns: 1fr; }
+
+      /* ai cards */
+      .ai-card { padding: 1.25rem; }
+
+      /* hero */
+      #hero { padding: 7rem 1.25rem 3rem; }
+      .hero-name { font-size: clamp(2.2rem, 12vw, 4rem); }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .btn-primary, .btn-secondary { text-align: center; justify-content: center; }
+
+      /* sections */
+      #about, #skills, #experience { padding: 4rem 1.25rem; }
+      #ai, #projects, #contact { padding: 4rem 1.25rem; }
+      .section-title { font-size: 1.75rem; }
+
+      /* timeline */
+      .timeline::before { left: 0.6rem; }
+      .timeline-item { padding-left: 2.5rem; }
+      .timeline-dot { left: 0.15rem; }
+
+      /* contact */
+      .contact-links { flex-direction: column; align-items: stretch; }
+      .contact-link { justify-content: center; }
+
+      /* mini cards */
+      .mini-card { padding: 1rem; }
+
+      /* nav */
+      nav { padding: 1rem 1.25rem; }
+    }
+
+    /* Project color variants */
+    .project-card.tds { --card-glow: rgba(79,158,255,0.07); }
+    .project-card.imd { --card-glow: rgba(167,139,250,0.07); }
+    .project-card.kiosk { --card-glow: rgba(52,211,153,0.07); }
+    .project-card.pm { --card-glow: rgba(251,146,60,0.07); }
+
+    .project-card.imd .project-number { color: var(--accent2); }
+    .project-card.imd .project-features li::before { color: var(--accent2); }
+    .project-card.imd .tech-tag { background: rgba(167,139,250,0.08); border-color: rgba(167,139,250,0.2); color: var(--accent2); }
+
+    .project-card.kiosk .project-number { color: var(--accent3); }
+    .project-card.kiosk .project-features li::before { color: var(--accent3); }
+    .project-card.kiosk .tech-tag { background: rgba(52,211,153,0.08); border-color: rgba(52,211,153,0.2); color: var(--accent3); }
+
+    .project-card.pm .project-number { color: var(--accent4); }
+    .project-card.pm .project-features li::before { color: var(--accent4); }
+    .project-card.pm .tech-tag { background: rgba(251,146,60,0.08); border-color: rgba(251,146,60,0.2); color: var(--accent4); }
+
+    .project-card.aislyn { --card-glow: rgba(52,211,153,0.05); }
+    .project-card.aislyn .project-number { color: var(--accent3); }
+    .project-card.aislyn .project-features li::before { color: var(--accent3); }
+    .project-card.aislyn .tech-tag { background: rgba(52,211,153,0.08); border-color: rgba(52,211,153,0.2); color: var(--accent3); }
+
+    .mini-project-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.3rem;
+    }
+    .mini-project-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .mini-project-year {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--accent2);
+      background: rgba(167,139,250,0.1);
+      border: 1px solid rgba(167,139,250,0.25);
+      border-radius: 6px;
+      padding: 0.15rem 0.45rem;
+      flex-shrink: 0;
+    }
+
+    /* Floating particles */
+    .particle {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      animation: particleFloat linear infinite;
+      opacity: 0.4;
+    }
+
+    @keyframes particleFloat {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.4; }
+      90% { opacity: 0.4; }
+      100% { transform: translateY(-100px) rotate(720deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Animated background -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- NAV -->
+  <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
+  <nav>
+    <button type="button" class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#ai">AI &amp; Agents</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact" class="nav-cta">Hire Me</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <h1 class="hero-name">Rohit Pachori</h1>
+    <p class="hero-title">Senior Software Engineer · <span id="typewriter-target"></span></p>
+    <p class="hero-desc">
+      7+ years crafting high-performance Android &amp; Flutter applications deployed across <strong>14+ countries</strong>. 
+      Specializing in kiosk ecosystems, real-time systems, and AI-assisted engineering.
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num" data-count="7">0</span>
+        <span class="stat-label">Years Exp</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num" data-count="14">0</span>
+        <span class="stat-label">Countries</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num" data-count="40">0</span>
+        <span class="stat-label">Cost Reduction</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num" data-count="5">0</span>
+        <span class="stat-label">Major Projects</span>
+      </div>
+    </div>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="Rohit_Pachori_Resume.pdf" download="Rohit_Pachori_Resume.pdf" class="btn-secondary btn-download">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M19 9h-4V3H9v6H5l7 7 7-7zm-14 9v2h14v-2H5z"/></svg>
+        Download Resume
+      </a>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label reveal">// about.me</div>
+    <h2 class="section-title reveal">Building systems that <span>scale globally</span></h2>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          I'm a <strong>Senior Software Engineer</strong> with 7+ years of experience in 
+          Native Android (Kotlin) and Flutter development. I architect scalable mobile ecosystems 
+          that run in enterprise environments across the globe.
+        </p>
+        <p>
+          At <strong><a href="https://www.thesmartq.com/" target="_blank" rel="noopener noreferrer">SmartQ</a></strong> (Compass Group's technology arm), I led the migration from Native Kotlin to Flutter — cutting 
+          maintenance costs by 40% while shipping features faster. I've built real-time display 
+          systems, self-service kiosk platforms, and integrated global payment gateways deployed across 
+          <strong>400+ sites</strong> and <strong>14+ countries</strong> in corporate and institutional dining.
+        </p>
+        <p>
+          I'm an <strong>advanced practitioner of AI-Assisted Development</strong> — I actively 
+          use Cursor, Claude, Gemini, and agentic tools not just as autocomplete, but as 
+          intelligent collaborators in architecture, debugging, and product design.
+        </p>
+      </div>
+      <div class="about-cards reveal">
+        <div class="mini-card">
+          <div class="mini-card-icon">🏗</div>
+          <div class="mini-card-title">Architecture</div>
+          <div class="mini-card-desc">Clean Architecture, MVVM, BLoC — chosen for the problem, not trend.</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-card-icon">🌍</div>
+          <div class="mini-card-title">Global Scale</div>
+          <div class="mini-card-desc">Products deployed in 14+ countries with country-specific tax engines.</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-card-icon">⚡</div>
+          <div class="mini-card-title">Real-Time</div>
+          <div class="mini-card-desc">Firebase-powered live systems — token display, menu updates, banners.</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-card-icon">🤖</div>
+          <div class="mini-card-title">AI-Native</div>
+          <div class="mini-card-desc">Leverages AI agents to 10x engineering velocity and code quality.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI & AGENTS SECTION -->
+  <section id="ai">
+    <div class="ai-inner">
+      <div class="section-label reveal">// ai.agents</div>
+      <h2 class="section-title reveal">Working with <span>AI Agents</span></h2>
+      <p class="reveal" style="color:var(--muted);max-width:600px;margin-top:0.5rem">
+        Beyond using AI as autocomplete — I orchestrate agents for architecture design, 
+        automated code reviews, test generation, and complex debugging workflows.
+      </p>
+
+      <div class="ai-grid">
+        <div class="ai-card reveal">
+          <div class="ai-card-icon">🧠</div>
+          <div class="ai-card-title">Cursor AI IDE</div>
+          <div class="ai-card-desc">
+            Deep integration with Cursor for agentic code generation, multi-file refactors, and 
+            AI-powered architectural decisions. Uses custom rules, skills, and hooks for project-specific behaviour.
+          </div>
+          <div class="ai-tools">
+            <span class="ai-tool-tag">Cursor Agents</span>
+            <span class="ai-tool-tag">Custom Rules</span>
+            <span class="ai-tool-tag">Agent Skills</span>
+            <span class="ai-tool-tag">Hooks</span>
+          </div>
+        </div>
+
+        <div class="ai-card reveal">
+          <div class="ai-card-icon">⚗️</div>
+          <div class="ai-card-title">Prompt Engineering</div>
+          <div class="ai-card-desc">
+            Crafts precise, minimal prompts that yield deterministic AI outputs. Understands 
+            context windows, chain-of-thought patterns, and how to structure agent workflows for 
+            complex multi-step engineering tasks.
+          </div>
+          <div class="ai-tools">
+            <span class="ai-tool-tag">Claude</span>
+            <span class="ai-tool-tag">Gemini</span>
+            <span class="ai-tool-tag">Sonnet 4.5</span>
+            <span class="ai-tool-tag">CoT</span>
+          </div>
+        </div>
+
+        <div class="ai-card reveal">
+          <div class="ai-card-icon">🔁</div>
+          <div class="ai-card-title">Agentic Workflows</div>
+          <div class="ai-card-desc">
+            Builds end-to-end agentic pipelines — from spec writing to TDD test generation, 
+            automated code review, documentation generation, and commit message automation. 
+            Reduces manual overhead by 60%+.
+          </div>
+          <div class="ai-tools">
+            <span class="ai-tool-tag">TDD Agent</span>
+            <span class="ai-tool-tag">Review Agent</span>
+            <span class="ai-tool-tag">Doc Agent</span>
+            <span class="ai-tool-tag">Git Hooks</span>
+          </div>
+        </div>
+
+        <div class="ai-card reveal">
+          <div class="ai-card-icon">🛠</div>
+          <div class="ai-card-title">AI-Augmented Debugging</div>
+          <div class="ai-card-desc">
+            Uses systematic AI debugging agents to identify root causes in complex systems — 
+            race conditions, state management bugs, payment flow edge cases — without trial-and-error.
+          </div>
+          <div class="ai-tools">
+            <span class="ai-tool-tag">Systematic Debug</span>
+            <span class="ai-tool-tag">Crash Analysis</span>
+            <span class="ai-tool-tag">Log Parsing</span>
+          </div>
+        </div>
+
+        <div class="ai-card reveal">
+          <div class="ai-card-icon">📋</div>
+          <div class="ai-card-title">AI-Driven Planning</div>
+          <div class="ai-card-desc">
+            Plans features and architecture using multi-agent exploration — researching patterns, 
+            generating trade-off analyses, writing implementation plans before touching code. 
+            Think before you build.
+          </div>
+          <div class="ai-tools">
+            <span class="ai-tool-tag">Plan Mode</span>
+            <span class="ai-tool-tag">Brainstorm Agent</span>
+            <span class="ai-tool-tag">Parallel Agents</span>
+          </div>
+        </div>
+
+        <div class="ai-card reveal">
+          <div class="ai-card-icon">🔐</div>
+          <div class="ai-card-title">Responsible AI Use</div>
+          <div class="ai-card-desc">
+            Applies strict AI safety checks — reviews all diffs, confirms logic is unchanged, 
+            never blindly commits AI code. Uses AI as a collaborator, not a replacement for 
+            engineering judgment.
+          </div>
+          <div class="ai-tools">
+            <span class="ai-tool-tag">Diff Review</span>
+            <span class="ai-tool-tag">Safety Checks</span>
+            <span class="ai-tool-tag">Test Coverage</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label reveal">// tech.stack</div>
+    <h2 class="section-title reveal">Technical <span>Skills</span></h2>
+
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Mobile Development</div>
+        <div class="tags-cloud">
+          <span class="tag">Kotlin / Android</span>
+          <span class="tag">Jetpack Compose</span>
+          <span class="tag">Flutter / Dart</span>
+          <span class="tag">Java</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Architecture & Patterns</div>
+        <div class="tags-cloud">
+          <span class="tag">Clean Architecture</span>
+          <span class="tag">MVVM / MVI</span>
+          <span class="tag">BLoC / Provider</span>
+          <span class="tag">TDD / BDD</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Specialized</div>
+        <div class="tags-cloud">
+          <span class="tag">Firebase Realtime DB</span>
+          <span class="tag">Freedom Pay</span>
+          <span class="tag">Pine Labs</span>
+          <span class="tag">IoT / BLE</span>
+          <span class="tag">Sunmi Devices</span>
+          <span class="tag">Zebra Thermal Printers</span>
+          <span class="tag">Barcode / QR Scanners</span>
+          <span class="tag">Payment Terminals</span>
+          <span class="tag">Kiosk Systems</span>
+          <span class="tag">Payment Gateways</span>
+          <span class="tag">Lottie Animations</span>
+          <span class="tag">ExoPlayer</span>
+          <span class="tag">CI/CD</span>
+          <span class="tag">Git</span>
+          <span class="tag">HIPAA Compliance</span>
+          <span class="tag">Tax Engines</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">AI Tooling</div>
+        <div class="tags-cloud">
+          <span class="tag">Cursor IDE</span>
+          <span class="tag">Claude (Anthropic)</span>
+          <span class="tag">Gemini</span>
+          <span class="tag">Antigravity</span>
+          <span class="tag">AI Agents</span>
+          <span class="tag">Prompt Engineering</span>
+          <span class="tag">Agentic Workflows</span>
+          <span class="tag">MCP Tools</span>
+          <span class="tag">TDD Agents</span>
+          <span class="tag">Code Review AI</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="projects-inner">
+      <div class="section-label reveal">// projects.build</div>
+      <h2 class="section-title reveal">Featured <span>Projects</span></h2>
+
+      <div class="projects-grid">
+
+        <div class="smartq-platform reveal">
+          <p class="smartq-platform-label">Enterprise platform · <a href="https://www.thesmartq.com/" target="_blank" rel="noopener noreferrer">SmartQ</a></p>
+          <p class="smartq-platform-desc">
+            Technology arm of <strong>Compass Group</strong> — the world's largest food service company — serving <strong>400+ clients</strong> across <strong>14 countries</strong>.
+            TDS, IMD, and Kiosk are part of SmartQ's digital F&B stack (Time2eat ecosystem), powering corporates, universities, live events, and food courts — including the UK market.
+          </p>
+          <div class="smartq-platform-tags">
+            <span>Compass Group</span>
+            <span>14 Countries</span>
+            <span>400+ Clients</span>
+            <span>B2B F&amp;B</span>
+            <span>UK Market</span>
+          </div>
+        </div>
+
+        <!-- TDS -->
+        <div class="project-card tds reveal">
+          <div>
+            <div class="project-number">01 · Token Display System</div>
+            <div class="project-name">TDS — Real-Time Token Display</div>
+            <div class="project-tagline">Live order status on large-format restaurant displays</div>
+            <p class="project-desc">
+              A Firebase-powered real-time token display system live across <strong>400+ sites</strong> in the UK and <strong>14+ countries</strong>.
+              Reduces queue confusion in high-traffic canteens — order preparation status and ready tokens update live for staff and customers without manual refresh.
+              Optimised for enterprise restaurant environments with country-specific configurations.
+            </p>
+            <ul class="project-features">
+              <li>Real-time Firebase order state sync</li>
+              <li>Multi-restaurant aggregated view</li>
+              <li>Country-based configuration engine</li>
+              <li>Live intelligent banner system</li>
+              <li>Video / Lottie / Image banner support</li>
+              <li>Screen saver with idle detection</li>
+              <li>Order filter & state transitions</li>
+              <li>High-traffic optimized UI updates</li>
+            </ul>
+            <div class="project-tech">
+              <span class="tech-tag">Flutter</span>
+              <span class="tech-tag">Firebase RTDB</span>
+              <span class="tech-tag">Lottie</span>
+              <span class="tech-tag">BLoC</span>
+              <span class="tech-tag">ExoPlayer</span>
+              <span class="tech-tag">MVVM</span>
+            </div>
+          </div>
+          <div class="project-badge">
+            <div class="badge-icon">📺</div>
+            <span class="status-badge">● Compass Group · Global</span>
+            <span class="countries-badge">400+ Sites · 14+ Countries</span>
+          </div>
+        </div>
+
+        <!-- IMD -->
+        <div class="project-card imd reveal">
+          <div>
+            <div class="project-number">02 · Item Display System</div>
+            <div class="project-name">IMD — Intelligent Menu Display</div>
+            <div class="project-tagline">Multi-restaurant live menu on big-screen displays</div>
+            <p class="project-desc">
+              A large-format display system live across <strong>400+ sites</strong> in the UK and <strong>14+ countries</strong>, showing live menu items across multiple restaurants simultaneously.
+              Real-time OFS (Order Fulfillment System) sync keeps boards accurate when items sell out — no manual menu board updates.
+              Powered by an intelligent banner engine for video, Lottie animations, and images on a scheduled rotation.
+            </p>
+            <ul class="project-features">
+              <li>Real-time OFS menu updates</li>
+              <li>Multi-restaurant aggregated menu</li>
+              <li>Intelligent banner scheduler</li>
+              <li>Video playback (ExoPlayer)</li>
+              <li>Lottie animation support</li>
+              <li>Dynamic image banners</li>
+              <li>Item availability sync</li>
+              <li>Price & tax display engine</li>
+            </ul>
+            <div class="project-tech">
+              <span class="tech-tag">Flutter</span>
+              <span class="tech-tag">Firebase</span>
+              <span class="tech-tag">ExoPlayer</span>
+              <span class="tech-tag">Lottie</span>
+              <span class="tech-tag">REST APIs</span>
+              <span class="tech-tag">BLoC</span>
+            </div>
+          </div>
+          <div class="project-badge">
+            <div class="badge-icon">🍽</div>
+            <span class="status-badge">● Compass Group · Global</span>
+            <span class="countries-badge">400+ Sites · 14+ Countries</span>
+          </div>
+        </div>
+
+        <!-- KIOSK -->
+        <div class="project-card kiosk reveal">
+          <div>
+            <div class="project-number">03 · Self-Service Kiosk</div>
+            <div class="project-name">Smart Kiosk — Global Ordering Platform</div>
+            <div class="project-tagline">End-to-end self-service ordering with payments</div>
+            <p class="project-desc">
+              A complete self-service kiosk ecosystem live across <strong>400+ sites</strong> in the UK and <strong>14+ countries</strong> — part of SmartQ's Time2eat digital stack for Compass Group cafeteria deployments.
+              Full self-service journey: browse → pay (Freedom Pay / Pine Labs) → print receipt, with country-specific tax engines, automated closure logic, and deep hardware integration (printers, scanners, payment terminals).
+            </p>
+            <ul class="project-features">
+              <li>Live menu with real-time availability</li>
+              <li>Freedom Pay &amp; Pine Labs integration</li>
+              <li>Country-specific tax calculation</li>
+              <li>Automated store closure logic</li>
+              <li>Thermal receipt printer integration (Sunmi / Zebra)</li>
+              <li>Barcode &amp; QR scanner hardware support</li>
+              <li>Payment terminal SDK integration</li>
+              <li>Receipt printing &amp; live preview</li>
+              <li>Jetpack Compose modern UI</li>
+              <li>MVVM + Clean Architecture</li>
+              <li>Offline resilience handling</li>
+              <li>Multi-language &amp; currency support</li>
+            </ul>
+            <div class="project-tech">
+              <span class="tech-tag">Kotlin</span>
+              <span class="tech-tag">Jetpack Compose</span>
+              <span class="tech-tag">Freedom Pay</span>
+              <span class="tech-tag">Pine Labs</span>
+              <span class="tech-tag">Firebase</span>
+              <span class="tech-tag">Clean Arch</span>
+              <span class="tech-tag">Sunmi SDK</span>
+              <span class="tech-tag">Zebra SDK</span>
+              <span class="tech-tag">Scanner SDK</span>
+            </div>
+          </div>
+          <div class="project-badge">
+            <div class="badge-icon">🤖</div>
+            <span class="status-badge">● Compass Group · Global</span>
+            <span class="countries-badge">400+ Sites · 14+ Countries</span>
+          </div>
+        </div>
+
+        <!-- AISLYNTECH -->
+        <div class="project-card aislyn reveal">
+          <div>
+            <div class="project-number">04 · Flutter E-Commerce + Operations App</div>
+            <div class="project-name">AislynTech — Engineering Projects Platform</div>
+            <div class="project-tagline">Marketplace + student & employee portals in one Flutter app</div>
+            <p class="project-desc">
+              A full-featured cross-platform Flutter app for <strong>Aislyn Technologies</strong> — combining an engineering-project marketplace, student project tracker, and employee operations portal. Integrates <strong>Razorpay</strong> live payments, <strong>Google Sign-In</strong> via Firebase Auth, embedded YouTube demos, Syncfusion PDF viewer, and REST APIs across two backend domains. Ships on Android & iOS from a single Dart codebase.
+            </p>
+            <ul class="project-features">
+              <li>E-commerce: 19 project categories</li>
+              <li>Cart, wishlist &amp; Razorpay checkout</li>
+              <li>Google Sign-In via Firebase Auth</li>
+              <li>Embedded YouTube product demos</li>
+              <li>Student portal — project &amp; payment tracking</li>
+              <li>Employee portal — daily status updates</li>
+              <li>Internship &amp; custom-project request forms</li>
+              <li>Syncfusion PDF topic viewer</li>
+              <li>Shimmer loading &amp; 5-min cache layer</li>
+              <li>Light/dark theme with Provider</li>
+              <li>MVVM + Repository architecture</li>
+              <li>Glassmorphism UI with Lottie animations</li>
+            </ul>
+            <div class="project-tech">
+              <span class="tech-tag">Flutter</span>
+              <span class="tech-tag">Dart</span>
+              <span class="tech-tag">Firebase Auth</span>
+              <span class="tech-tag">Razorpay</span>
+              <span class="tech-tag">Google Sign-In</span>
+              <span class="tech-tag">Provider</span>
+              <span class="tech-tag">REST APIs</span>
+              <span class="tech-tag">YouTube Player</span>
+              <span class="tech-tag">Syncfusion PDF</span>
+              <span class="tech-tag">MVVM</span>
+            </div>
+          </div>
+          <div class="project-badge">
+            <div class="badge-icon">🎓</div>
+            <span class="status-badge">● Shipped</span>
+            <span class="countries-badge">Android &amp; iOS</span>
+          </div>
+        </div>
+
+        <!-- PASSWORD MANAGER -->
+        <div class="project-card pm reveal">
+          <div>
+            <div class="project-number">05 · Personal Project</div>
+            <div class="project-name">SecureVault — Password Manager</div>
+            <div class="project-tagline">Cross-platform encrypted credential manager</div>
+            <p class="project-desc">
+              A cross-platform Flutter password manager with local encrypted storage. Built with 
+              security-first principles — biometric authentication, AES encryption, and zero cloud 
+              dependency for sensitive data. Supports multiple platforms including Android, iOS, 
+              web, and desktop.
+            </p>
+            <ul class="project-features">
+              <li>AES encrypted local storage</li>
+              <li>Biometric authentication</li>
+              <li>Cross-platform (Android/iOS/Web)</li>
+              <li>Secure clipboard handling</li>
+              <li>Password strength generator</li>
+              <li>Category-based organisation</li>
+              <li>Zero cloud data exposure</li>
+              <li>Flutter multi-platform build</li>
+            </ul>
+            <div class="project-tech">
+              <span class="tech-tag">Flutter</span>
+              <span class="tech-tag">Dart</span>
+              <span class="tech-tag">SQLite</span>
+              <span class="tech-tag">Biometrics</span>
+              <span class="tech-tag">AES</span>
+              <span class="tech-tag">Provider</span>
+            </div>
+          </div>
+          <div class="project-badge">
+            <div class="badge-icon">🔐</div>
+            <span class="status-badge">● Shipped</span>
+            <span class="countries-badge">Open Source</span>
+          </div>
+        </div>
+
+        <!-- MINI PROJECTS CARD -->
+        <div class="project-card mini-projects-card reveal" style="--card-glow:rgba(167,139,250,0.05);">
+          <div>
+            <div class="project-number" style="color:var(--accent2)">06 · Mini Projects</div>
+            <div class="project-name">Side Builds</div>
+            <div class="project-tagline">Smaller apps shipped end-to-end — real features, real backends</div>
+            <p class="project-desc">A collection of focused side projects built to solve real problems, each with a live backend, hardware or native integration, and shipped to working APKs. Years show last source-code edit (newest first).</p>
+
+            <div class="mini-projects-grid">
+
+              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:1.25rem;">
+                <div style="font-size:1.25rem;margin-bottom:0.5rem;">🧠</div>
+                <div class="mini-project-head">
+                  <div class="mini-project-title">Dementia Care (Aumetra)</div>
+                  <span class="mini-project-year">2022</span>
+                </div>
+                <div style="font-size:0.75rem;color:var(--muted);line-height:1.6;margin-bottom:0.75rem;">Flutter care-companion app — polls remote vitals (SpO2, BP, pressure) every 10s and plays condition-aware therapeutic audio. Local phone/PIN auth via SQLite. IoT health API from Aislyn Tech.</div>
+                <div style="display:flex;flex-wrap:wrap;gap:0.3rem;">
+                  <span class="tech-tag">Flutter</span>
+                  <span class="tech-tag">audioplayers</span>
+                  <span class="tech-tag">SQLite</span>
+                  <span class="tech-tag">IoT API</span>
+                </div>
+              </div>
+
+              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:1.25rem;">
+                <div style="font-size:1.25rem;margin-bottom:0.5rem;">🅿️</div>
+                <div class="mini-project-head">
+                  <div class="mini-project-title">QR Smart Parking</div>
+                  <span class="mini-project-year">2021</span>
+                </div>
+                <div style="font-size:0.75rem;color:var(--muted);line-height:1.6;margin-bottom:0.75rem;">Native Android Java — QR scan to park, 4 live slots (10s auto-refresh), prepaid wallet, licence-plate auth. Backend: aislyn.in/QRPARK.</div>
+                <div style="display:flex;flex-wrap:wrap;gap:0.3rem;">
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">Android Java</span>
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">ZXing QR</span>
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">Retrofit</span>
+                </div>
+              </div>
+
+              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:1.25rem;">
+                <div style="font-size:1.25rem;margin-bottom:0.5rem;">👁️</div>
+                <div class="mini-project-head">
+                  <div class="mini-project-title">Object Detection (YOLOv8)</div>
+                  <span class="mini-project-year">2022</span>
+                </div>
+                <div style="font-size:0.75rem;color:var(--muted);line-height:1.6;margin-bottom:0.75rem;">Kotlin accessibility app — real-time YOLOv8 on-device detection via TensorFlow Lite + CameraX, bounding-box overlay, distance/position TTS guidance for blind users. Room auth, GPU/CPU toggle.</div>
+                <div style="display:flex;flex-wrap:wrap;gap:0.3rem;">
+                  <span class="tech-tag">Kotlin</span>
+                  <span class="tech-tag">YOLOv8</span>
+                  <span class="tech-tag">TFLite</span>
+                  <span class="tech-tag">CameraX</span>
+                </div>
+              </div>
+
+              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:1.25rem;">
+                <div style="font-size:1.25rem;margin-bottom:0.5rem;">🐕</div>
+                <div class="mini-project-head">
+                  <div class="mini-project-title">Dog Health (Neck Band)</div>
+                  <span class="mini-project-year">2021</span>
+                </div>
+                <div style="font-size:0.75rem;color:var(--muted);line-height:1.6;margin-bottom:0.75rem;">Flutter pet-health companion — live heart rate &amp; temperature from IoT neckband API, GPS tracking (Google Maps), vet directory, grooming &amp; reports. Firebase Auth + Google Sign-In, SQLite local storage.</div>
+                <div style="display:flex;flex-wrap:wrap;gap:0.3rem;">
+                  <span class="tech-tag">Flutter</span>
+                  <span class="tech-tag">Firebase</span>
+                  <span class="tech-tag">Google Maps</span>
+                  <span class="tech-tag">IoT API</span>
+                </div>
+              </div>
+
+              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:1.25rem;">
+                <div style="font-size:1.25rem;margin-bottom:0.5rem;">🎓</div>
+                <div class="mini-project-head">
+                  <div class="mini-project-title">Aislyn Titus Attendance</div>
+                  <span class="mini-project-year">2023</span>
+                </div>
+                <div style="font-size:0.75rem;color:var(--muted);line-height:1.6;margin-bottom:0.75rem;">Dual-role Flutter school app (student &amp; staff) — table-calendar attendance, leave requests, homework upload/download, holidays, notifications via OneSignal + local alerts. Dio/HTTP to live PHP REST backend.</div>
+                <div style="display:flex;flex-wrap:wrap;gap:0.3rem;">
+                  <span class="tech-tag">Flutter</span>
+                  <span class="tech-tag">OneSignal</span>
+                  <span class="tech-tag">Dio</span>
+                  <span class="tech-tag">PHP REST</span>
+                </div>
+              </div>
+
+              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:1.25rem;">
+                <div style="font-size:1.25rem;margin-bottom:0.5rem;">👤</div>
+                <div class="mini-project-head">
+                  <div class="mini-project-title">Face Recognition</div>
+                  <span class="mini-project-year">2023</span>
+                </div>
+                <div style="font-size:0.75rem;color:var(--muted);line-height:1.6;margin-bottom:0.75rem;">Flutter ML app — register faces from camera/gallery, real-time detection &amp; recognition via Google ML Kit, spoken TTS feedback, Hive local face database for offline matching.</div>
+                <div style="display:flex;flex-wrap:wrap;gap:0.3rem;">
+                  <span class="tech-tag">Flutter</span>
+                  <span class="tech-tag">ML Kit</span>
+                  <span class="tech-tag">Hive</span>
+                  <span class="tech-tag">flutter_tts</span>
+                </div>
+              </div>
+
+              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:1.25rem;">
+                <div style="font-size:1.25rem;margin-bottom:0.5rem;">👟</div>
+                <div class="mini-project-head">
+                  <div class="mini-project-title">Pedometer</div>
+                  <span class="mini-project-year">2022</span>
+                </div>
+                <div style="font-size:0.75rem;color:var(--muted);line-height:1.6;margin-bottom:0.75rem;">Lightweight Android step tracker — hardware step-counter sensor (no GPS drain), daily goals, history charts (EazeGraph), Google Play achievements sign-in, boot-resume foreground service.</div>
+                <div style="display:flex;flex-wrap:wrap;gap:0.3rem;">
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">Android Java</span>
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">Step Sensor</span>
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">Google Fit</span>
+                </div>
+              </div>
+
+              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:1.25rem;">
+                <div style="font-size:1.25rem;margin-bottom:0.5rem;">📋</div>
+                <div class="mini-project-head">
+                  <div class="mini-project-title">College Notice Board</div>
+                  <span class="mini-project-year">2022</span>
+                </div>
+                <div style="font-size:0.75rem;color:var(--muted);line-height:1.6;margin-bottom:0.75rem;">Kotlin campus ops app — employee login/registration, live notice-board status (8s polling), parking-cost updates, profile. Dagger Hilt DI, Retrofit, Kotlin Flow + LiveData, Navigation Component.</div>
+                <div style="display:flex;flex-wrap:wrap;gap:0.3rem;">
+                  <span class="tech-tag">Kotlin</span>
+                  <span class="tech-tag">Dagger Hilt</span>
+                  <span class="tech-tag">Flow</span>
+                  <span class="tech-tag">Retrofit</span>
+                </div>
+              </div>
+
+              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:1.25rem;">
+                <div style="font-size:1.25rem;margin-bottom:0.5rem;">✈️</div>
+                <div class="mini-project-head">
+                  <div class="mini-project-title">Smart Travel</div>
+                  <span class="mini-project-year">2022</span>
+                </div>
+                <div style="font-size:0.75rem;color:var(--muted);line-height:1.6;margin-bottom:0.75rem;">Kotlin/Java travel companion — OCR scan-to-translate (Tesseract + ML Kit), city attractions (Room + Hilt + Retrofit), travel notepad, QR generator. Firebase analytics, multi-language UI, user auth.</div>
+                <div style="display:flex;flex-wrap:wrap;gap:0.3rem;">
+                  <span class="tech-tag">Kotlin</span>
+                  <span class="tech-tag">ML Kit</span>
+                  <span class="tech-tag">Tesseract</span>
+                  <span class="tech-tag">Room</span>
+                </div>
+              </div>
+
+              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:1.25rem;">
+                <div style="font-size:1.25rem;margin-bottom:0.5rem;">🛒</div>
+                <div class="mini-project-head">
+                  <div class="mini-project-title">Chikki Shop</div>
+                  <span class="mini-project-year">2022</span>
+                </div>
+                <div style="font-size:0.75rem;color:var(--muted);line-height:1.6;margin-bottom:0.75rem;">Native Android sweets e-commerce — customer catalog, cart &amp; orders; separate admin app for product CRUD and order fulfilment. Retrofit + Volley PHP API, Glide, shimmer loaders, auto-rotating banners.</div>
+                <div style="display:flex;flex-wrap:wrap;gap:0.3rem;">
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">Android Java</span>
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">Retrofit</span>
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">Glide</span>
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">PHP REST</span>
+                </div>
+              </div>
+
+              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:1.25rem;">
+                <div style="font-size:1.25rem;margin-bottom:0.5rem;">🗺️</div>
+                <div class="mini-project-head">
+                  <div class="mini-project-title">Xplore Mysuru (TravelPlaces)</div>
+                  <span class="mini-project-year">2021</span>
+                </div>
+                <div style="font-size:0.75rem;color:var(--muted);line-height:1.6;margin-bottom:0.75rem;">Udacity tour-guide app for Mysore — 5 bottom-nav lists (places, parks, hotels, restaurants, shops) with expandable cards, Maps/dial intents, MVP + Repository, LruCache image loading, custom snap BottomNavigationBehavior.</div>
+                <div style="display:flex;flex-wrap:wrap;gap:0.3rem;">
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">Android Java</span>
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">MVP</span>
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">LruCache</span>
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">Maps</span>
+                </div>
+              </div>
+
+              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:1.25rem;">
+                <div style="font-size:1.25rem;margin-bottom:0.5rem;">📝</div>
+                <div class="mini-project-head">
+                  <div class="mini-project-title">QR Scan Exam</div>
+                  <span class="mini-project-year">2021</span>
+                </div>
+                <div style="font-size:0.75rem;color:var(--muted);line-height:1.6;margin-bottom:0.75rem;">Two-sided online exam app — students scan QR to launch timed MCQ tests; teachers create question sets, view results, export PDFs. ZXing scanner, Retrofit PHP API, custom PDF creator module, countdown timer.</div>
+                <div style="display:flex;flex-wrap:wrap;gap:0.3rem;">
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">Android Java</span>
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">ZXing</span>
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">Retrofit</span>
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">PDF</span>
+                </div>
+              </div>
+
+              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:1.25rem;">
+                <div style="font-size:1.25rem;margin-bottom:0.5rem;">💳</div>
+                <div class="mini-project-head">
+                  <div class="mini-project-title">HESA (Rural Fintech)</div>
+                  <span class="mini-project-year">2021</span>
+                </div>
+                <div style="font-size:0.75rem;color:var(--muted);line-height:1.6;margin-bottom:0.75rem;">Native Android super-app UI for Hesa Enterprises — wallet dashboard, bill-pay tiles (electricity, gas, DTH, loans, banking), QR profile, multi-step registration (email/mobile/account validation) and onboarding slider.</div>
+                <div style="display:flex;flex-wrap:wrap;gap:0.3rem;">
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">Android Java</span>
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">Fintech UI</span>
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">KYC Flow</span>
+                </div>
+              </div>
+
+              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:1.25rem;">
+                <div style="font-size:1.25rem;margin-bottom:0.5rem;">📚</div>
+                <div class="mini-project-head">
+                  <div class="mini-project-title">Aislyn Learn App</div>
+                  <span class="mini-project-year">2021</span>
+                </div>
+                <div style="font-size:0.75rem;color:var(--muted);line-height:1.6;margin-bottom:0.75rem;">Native Android edtech platform — 15+ paid course tracks (HTML, PHP, Python, Java, MySQL, Arduino, ARM, ML, Raspberry Pi) with YouTube lessons, ExoPlayer, Razorpay checkout, and Volley-backed user dashboard (courses, orders, feedback).</div>
+                <div style="display:flex;flex-wrap:wrap;gap:0.3rem;">
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">Android Java</span>
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">Razorpay</span>
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">Volley</span>
+                  <span class="tech-tag" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2);color:var(--accent3)">ExoPlayer</span>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="project-tech">
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">Flutter</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">Android Java</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">BLoC</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">ZXing</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">OneSignal</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">SQLite</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">IoT API</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">PHP REST</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">Razorpay</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">Volley</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">Retrofit</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">Glide</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">Kotlin</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">Dagger Hilt</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">ML Kit</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">Hive</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">Step Sensor</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">PDF</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">Tesseract</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">Room</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">MVP</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">YOLOv8</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">TFLite</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">CameraX</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">Firebase</span>
+              <span class="tech-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--accent2)">Google Maps</span>
+            </div>
+          </div>
+          <div class="project-badge">
+            <div class="badge-icon">⚡</div>
+            <span class="status-badge">● Shipped</span>
+            <span class="countries-badge">14 Projects</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-label reveal">// experience.log</div>
+    <h2 class="section-title reveal">Professional <span>Experience</span></h2>
+
+    <div class="timeline">
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">May 2022 – Present</div>
+        <div class="timeline-company"><a href="https://www.thesmartq.com/" target="_blank" rel="noopener noreferrer">SmartQ</a> (Bottle Lab Technologies Pvt Ltd)</div>
+        <div class="timeline-role">Senior Software Developer</div>
+        <ul class="timeline-points">
+          <li>Shipped display &amp; kiosk products for <strong>Compass Group</strong> cafeteria operations worldwide</li>
+          <li>Architected global Self-Service Kiosk Ecosystem — 14+ countries, complex tax engines, auto-closure</li>
+          <li>Led Native Kotlin → Flutter migration achieving 40% maintenance cost reduction</li>
+          <li>Built Real-Time Token Display System (TDS) using Firebase for high-traffic restaurant environments</li>
+          <li>Integrated thermal receipt printers (Sunmi/Zebra) and barcode/QR scanners with custom hardware SDKs</li>
+          <li>Integrated global payment terminals — Freedom Pay &amp; Pine Labs — for seamless card/contactless transactions</li>
+          <li>TDS, IMD &amp; Kiosk live across <strong>400+ sites</strong> in <strong>14+ countries</strong> (corporates, universities, events &amp; food courts)</li>
+          <li>Developed IMD — live multi-restaurant menu display with intelligent media banner system</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot" style="background: var(--accent2); box-shadow: 0 0 12px rgba(167,139,250,0.5)"></div>
+        <div class="timeline-date">Aug 2021 – Apr 2022</div>
+        <div class="timeline-company">Cognitive Cloud Pvt Ltd</div>
+        <div class="timeline-role">Software Engineer</div>
+        <ul class="timeline-points">
+          <li>Developed HIPAA-compliant healthcare applications with strict data integrity</li>
+          <li>High-concurrency threading for sensitive healthcare data handling</li>
+          <li>Implemented JUnit + Mockito test suites — 25% reduction in post-launch crash rates</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot" style="background: var(--accent3); box-shadow: 0 0 12px rgba(52,211,153,0.5)"></div>
+        <div class="timeline-date">Jan 2019 – Jul 2021</div>
+        <div class="timeline-company">Aislyn Technologies Pvt Ltd</div>
+        <div class="timeline-role">Software Engineer</div>
+        <ul class="timeline-points">
+          <li>Engineered Android IoT solutions with Bluetooth / BLE peripherals</li>
+          <li>Built sensor integrations for healthcare and education clients</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="section-label reveal">// contact.me</div>
+      <h2 class="section-title reveal">Let's <span>Work Together</span></h2>
+      <p class="contact-desc reveal">
+        Looking for a senior engineer who ships real products, works with AI tools fluently, 
+        and has production experience across 14+ countries? Let's talk.
+      </p>
+      <div class="contact-links reveal">
+        <a href="mailto:rpachori21@gmail.com" class="contact-link">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          rpachori21@gmail.com
+        </a>
+        <a href="tel:+918277270451" class="contact-link">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          +91-8277270451
+        </a>
+        <a href="https://github.com/githubrohitgithub" target="_blank" class="contact-link">
+          <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+          GitHub
+        </a>
+        <a href="Rohit_Pachori_Resume.pdf" download="Rohit_Pachori_Resume.pdf" class="contact-link" style="border-color:rgba(52,211,153,0.3);color:var(--accent3)">
+          <svg viewBox="0 0 24 24" style="fill:var(--accent3)"><path d="M19 9h-4V3H9v6H5l7 7 7-7zm-14 9v2h14v-2H5z"/></svg>
+          Resume PDF
+        </a>
+        <a href="https://www.linkedin.com/in/rohit-pachori-728193a1/" target="_blank" class="contact-link">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+      <div class="reveal" style="color:var(--muted);font-size:0.8rem">
+        📍 Bengaluru, India
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Built with raw HTML + CSS + JS · No frameworks · <span style="color:var(--accent)">Rohit Pachori</span> © 2026</p>
+  </footer>
+
+  <script>
+    // ── CANVAS BACKGROUND ──
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const nodes = [];
+    const NODE_COUNT = 60;
+
+    for (let i = 0; i < NODE_COUNT; i++) {
+      nodes.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 2 + 1,
+      });
+    }
+
+    function drawCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      nodes.forEach(n => {
+        n.x += n.vx;
+        n.y += n.vy;
+        if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
+        if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(79,158,255,0.5)';
+        ctx.fill();
+      });
+
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 150) {
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.strokeStyle = `rgba(79,158,255,${0.12 * (1 - dist / 150)})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(drawCanvas);
+    }
+    drawCanvas();
+
+    // ── TYPEWRITER ──
+    const phrases = [
+      'Android (Kotlin) Expert',
+      'Flutter Developer',
+      'AI-Native Engineer',
+      'Kiosk Systems Architect',
+      'Real-Time Systems Builder',
+    ];
+    let phraseIdx = 0, charIdx = 0, deleting = false;
+    const tw = document.getElementById('typewriter-target');
+    tw.className = 'typewriter';
+
+    function typeLoop() {
+      const phrase = phrases[phraseIdx];
+      if (!deleting) {
+        tw.textContent = phrase.slice(0, charIdx + 1);
+        charIdx++;
+        if (charIdx === phrase.length) {
+          deleting = true;
+          setTimeout(typeLoop, 2000);
+          return;
+        }
+      } else {
+        tw.textContent = phrase.slice(0, charIdx - 1);
+        charIdx--;
+        if (charIdx === 0) {
+          deleting = false;
+          phraseIdx = (phraseIdx + 1) % phrases.length;
+        }
+      }
+      setTimeout(typeLoop, deleting ? 50 : 80);
+    }
+    typeLoop();
+
+    // ── COUNTER ──
+    function animateCount(el, target) {
+      let current = 0;
+      const step = Math.ceil(target / 50);
+      const interval = setInterval(() => {
+        current = Math.min(current + step, target);
+        el.textContent = current + (target === 40 ? '%' : '+');
+        if (current >= target) clearInterval(interval);
+      }, 30);
+    }
+
+    // ── REVEAL ON SCROLL ──
+    const reveals = document.querySelectorAll('.reveal');
+    const counters = document.querySelectorAll('.stat-num[data-count]');
+    let countersAnimated = false;
+
+    function markRevealVisible(el) {
+      if (!el.classList.contains('visible')) {
+        el.classList.add('visible');
+      }
+    }
+
+    function checkRevealsInViewport() {
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      reveals.forEach(el => {
+        if (el.classList.contains('visible')) return;
+        const rect = el.getBoundingClientRect();
+        if (rect.top < vh && rect.bottom > 0) {
+          markRevealVisible(el);
+        }
+      });
+    }
+
+    const revealObserver = typeof IntersectionObserver !== 'undefined'
+      ? new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting || entry.intersectionRatio > 0) {
+              markRevealVisible(entry.target);
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: [0, 0.05, 0.15],
+          rootMargin: '0px 0px 80px 0px'
+        })
+      : null;
+
+    reveals.forEach(el => {
+      if (revealObserver) revealObserver.observe(el);
+    });
+
+    window.addEventListener('scroll', checkRevealsInViewport, { passive: true });
+    window.addEventListener('resize', checkRevealsInViewport, { passive: true });
+    window.addEventListener('load', checkRevealsInViewport);
+    checkRevealsInViewport();
+    setTimeout(checkRevealsInViewport, 400);
+    setTimeout(checkRevealsInViewport, 1500);
+
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !countersAnimated) {
+          countersAnimated = true;
+          counters.forEach(el => animateCount(el, parseInt(el.dataset.count)));
+        }
+      });
+    }, { threshold: 0.5 });
+
+    counters.forEach(el => counterObserver.observe(el));
+
+    // ── MOBILE NAV ──
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    const navBackdrop = document.getElementById('navBackdrop');
+
+    function setNavOpen(open) {
+      navLinks.classList.toggle('open', open);
+      navBackdrop.classList.toggle('visible', open);
+      navToggle.setAttribute('aria-expanded', open);
+      navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      document.body.classList.toggle('nav-open', open);
+    }
+
+    navToggle.addEventListener('click', () => setNavOpen(!navLinks.classList.contains('open')));
+    navBackdrop.addEventListener('click', () => setNavOpen(false));
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape') setNavOpen(false);
+    });
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 1024) setNavOpen(false);
+    });
+
+    // ── SMOOTH NAV ──
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        setNavOpen(false);
+        target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
