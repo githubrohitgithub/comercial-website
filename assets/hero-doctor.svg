@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 520" fill="none" role="img" aria-label="Doctor illustration">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d4eef2"/>
+      <stop offset="100%" stop-color="#a8d4dc"/>
+    </linearGradient>
+    <linearGradient id="coat" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e8f4f6"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b6b7a"/>
+      <stop offset="100%" stop-color="#064a56"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="520" rx="32" fill="url(#bg)"/>
+  <circle cx="400" cy="90" r="56" fill="#fff" opacity=".45"/>
+  <circle cx="70" cy="420" r="72" fill="#fff" opacity=".35"/>
+  <ellipse cx="240" cy="470" rx="160" ry="28" fill="#064a56" opacity=".12"/>
+  <!-- Doctor figure -->
+  <path d="M240 108c-38 0-68 30-68 68 0 22 10 42 26 54v18h84v-18c16-12 26-32 26-54 0-38-30-68-68-68z" fill="#f4c9a8"/>
+  <path d="M172 176c0-38 30-54 68-54s68 16 68 54c0 28-18 48-42 56l-6 88h-40l-6-88c-24-8-42-28-42-56z" fill="url(#coat)" stroke="#b8d4da" stroke-width="2"/>
+  <path d="M196 248h88v120c0 18-14 32-32 32h-24c-18 0-32-14-32-32V248z" fill="url(#coat)" stroke="#b8d4da" stroke-width="2"/>
+  <path d="M208 360h64v48h-64z" fill="#064a56"/>
+  <path d="M220 408h40v24c0 8-6 14-14 14h-12c-8 0-14-6-14-14v-24z" fill="#0b6b7a"/>
+  <!-- Stethoscope -->
+  <path d="M268 210c24 0 44 20 44 44 0 20-12 36-30 42v38c0 14-10 24-24 24h-8" stroke="url(#teal)" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="282" cy="254" r="14" fill="url(#teal)"/>
+  <circle cx="282" cy="254" r="6" fill="#fff"/>
+  <!-- Hair -->
+  <path d="M172 176c8-36 36-56 68-56s60 20 68 56c-12-28-36-44-68-44s-56 16-68 44z" fill="#3d4f56"/>
+  <!-- Face details -->
+  <ellipse cx="218" cy="168" rx="6" ry="8" fill="#3d4f56"/>
+  <ellipse cx="262" cy="168" rx="6" ry="8" fill="#3d4f56"/>
+  <path d="M228 188c8 10 16 10 24 0" stroke="#d4956a" stroke-width="3" stroke-linecap="round"/>
+  <!-- Medical cross badge -->
+  <circle cx="340" cy="300" r="40" fill="url(#teal)"/>
+  <path d="M340 282v36M322 300h36" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+  <!-- Clipboard -->
+  <rect x="108" y="268" width="56" height="72" rx="8" fill="#fff" stroke="#b8d4da" stroke-width="2"/>
+  <rect x="118" y="248" width="36" height="16" rx="4" fill="#0b6b7a"/>
+  <line x1="120" y1="292" x2="152" y2="292" stroke="#a8d4dc" stroke-width="4" stroke-linecap="round"/>
+  <line x1="120" y1="308" x2="148" y2="308" stroke="#a8d4dc" stroke-width="4" stroke-linecap="round"/>
+  <line x1="120" y1="324" x2="140" y2="324" stroke="#a8d4dc" stroke-width="4" stroke-linecap="round"/>
+</svg>
