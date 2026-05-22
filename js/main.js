@@ -201,18 +201,34 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  navToggle?.addEventListener("click", () => {
-    const open = nav.classList.toggle("nav--open");
-    navToggle.setAttribute("aria-expanded", open);
-    document.body.classList.toggle("menu-open", open);
+  const closeNav = () => {
+    nav?.classList.remove("nav--open");
+    navToggle?.setAttribute("aria-expanded", "false");
+    navToggle?.setAttribute("aria-label", "Open menu");
+    document.body.classList.remove("menu-open");
+  };
+
+  navToggle?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const open = !nav.classList.contains("nav--open");
+    if (open) {
+      nav.classList.add("nav--open");
+      navToggle.setAttribute("aria-expanded", "true");
+      navToggle.setAttribute("aria-label", "Close menu");
+      document.body.classList.add("menu-open");
+    } else {
+      closeNav();
+    }
   });
 
-  nav?.querySelectorAll("a[href^='#']").forEach((link) => {
-    link.addEventListener("click", () => {
-      nav.classList.remove("nav--open");
-      navToggle?.setAttribute("aria-expanded", "false");
-      document.body.classList.remove("menu-open");
-    });
+  document.addEventListener("click", (e) => {
+    if (!nav?.classList.contains("nav--open")) return;
+    if (nav.contains(e.target) || navToggle?.contains(e.target)) return;
+    closeNav();
+  });
+
+  nav?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", closeNav);
   });
 
   document.getElementById("team-search")?.addEventListener("input", (e) => {

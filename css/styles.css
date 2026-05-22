@@ -19,6 +19,7 @@
   --radius: 16px;
   --radius-lg: 24px;
   --header-h: 80px;
+  --gutter: clamp(1rem, 4vw, 1.75rem);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -37,9 +38,19 @@ body {
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
+  padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
 }
 
 body.menu-open { overflow: hidden; }
+
+body.menu-open::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 198;
+  background: rgba(15, 42, 51, 0.45);
+  pointer-events: auto;
+}
 
 a { color: var(--primary); text-decoration: none; transition: color 0.2s, opacity 0.2s; }
 a:hover { color: var(--primary-dark); }
@@ -47,8 +58,10 @@ a:hover { color: var(--primary-dark); }
 img { max-width: 100%; display: block; }
 
 .container {
-  width: min(1200px, 92vw);
+  width: 100%;
+  max-width: 1200px;
   margin-inline: auto;
+  padding-inline: var(--gutter);
 }
 
 /* Animated background orbs */
@@ -100,7 +113,12 @@ img { max-width: 100%; display: block; }
   66% { transform: translate(-20px, 30px) scale(0.95); }
 }
 
-main, .header, .footer, .emergency-float, .trust-strip { position: relative; z-index: 1; }
+main, .header, .footer, .emergency-float, .trust-strip {
+  position: relative;
+  z-index: 1;
+}
+
+main { padding-bottom: env(safe-area-inset-bottom, 0px); }
 
 /* Header */
 .header {
@@ -686,10 +704,6 @@ main, .header, .footer, .emergency-float, .trust-strip { position: relative; z-i
 /* Gallery */
 .gallery { padding: 4rem 0 2rem; }
 
-.gallery .container {
-  width: min(1200px, 96vw);
-}
-
 .gallery__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1067,7 +1081,7 @@ main, .header, .footer, .emergency-float, .trust-strip { position: relative; z-i
 /* Facilities */
 .facilities-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
   gap: 1.25rem;
 }
 
@@ -1278,7 +1292,7 @@ main, .header, .footer, .emergency-float, .trust-strip { position: relative; z-i
 
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
   gap: 1rem;
 }
 
@@ -1552,67 +1566,168 @@ main, .header, .footer, .emergency-float, .trust-strip { position: relative; z-i
 }
 
 /* Responsive */
-@media (max-width: 1024px) {
-  .hero__grid { grid-template-columns: 1fr; }
-  .hero__visual {
-    order: -1;
-    max-width: min(380px, 100%);
-    margin-inline: auto;
-    padding: 0 0 1rem;
-  }
-  .hero__image-wrap { height: 210px; max-height: 210px; }
-  .hero__highlights { max-width: min(380px, 100%); }
-  .hero__nav { width: 34px; height: 34px; }
-  .hero__dots { max-height: 48px; overflow-y: auto; }
-  .about-bento { grid-template-columns: 1fr; }
-  .leadership { grid-template-columns: 1fr; }
-  .contact-layout { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 900px) {
-  .hero__stats { grid-template-columns: repeat(2, 1fr); }
-  .highlights__grid { grid-template-columns: 1fr; }
-  .spec-panels { grid-template-columns: 1fr; }
-  .footer__grid { grid-template-columns: 1fr; }
-  .footer__emergency { text-align: left; }
-  .gallery__grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: 768px) {
+/* Tablet landscape & small laptop */
+@media (max-width: 1100px) {
   .nav-toggle { display: flex; }
 
   .nav {
     position: fixed;
     inset: var(--header-h) 0 0 0;
+    width: min(320px, 88vw);
+    margin-left: auto;
     flex-direction: column;
     align-items: stretch;
-    padding: 1.5rem;
+    padding: 1.25rem var(--gutter) calc(1.5rem + env(safe-area-inset-bottom));
     gap: 0.25rem;
     background: var(--surface);
     transform: translateX(100%);
     transition: transform 0.4s var(--ease);
-    box-shadow: -12px 0 40px rgba(0, 0, 0, 0.08);
+    box-shadow: -12px 0 40px rgba(0, 0, 0, 0.1);
+    z-index: 199;
   }
 
   .nav--open { transform: translateX(0); }
 
   .nav a[data-nav] {
-    padding: 1rem;
-    border-radius: var(--radius);
+    padding: 0.9rem 0.5rem;
+    font-size: 1rem;
     border-bottom: 1px solid var(--border);
+    border-radius: 0;
   }
 
-  .nav__cta { margin-left: 0 !important; justify-content: center; margin-top: 0.5rem; }
+  .nav__cta {
+    margin-left: 0 !important;
+    margin-top: 0.75rem;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero__grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .hero__visual {
+    order: -1;
+    max-width: 100%;
+    width: 100%;
+    margin-inline: auto;
+  }
+
+  .hero__slider,
+  .hero__highlights {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .hero__image-wrap {
+    height: clamp(200px, 42vw, 280px);
+    max-height: none;
+  }
+
+  .about-bento { grid-template-columns: 1fr; }
+  .about-bento__main { grid-row: auto; }
+  .leadership { grid-template-columns: 1fr 1fr; }
+  .contact-layout { grid-template-columns: 1fr; }
+  .facilities-grid {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+  }
+}
+
+/* Tablet portrait */
+@media (max-width: 900px) {
+  .section { padding: 4rem 0; }
+
+  .hero__stats { grid-template-columns: repeat(2, 1fr); }
+  .highlights__grid { grid-template-columns: 1fr; }
+  .spec-panels { grid-template-columns: 1fr; }
+  .leadership { grid-template-columns: 1fr; }
+  .footer__grid { grid-template-columns: 1fr 1fr; }
+  .footer__emergency { grid-column: 1 / -1; text-align: left; }
+  .gallery__grid { grid-template-columns: repeat(2, 1fr); }
+  .hero h1 { font-size: clamp(2rem, 6vw, 2.75rem); }
+}
+
+/* Large phones */
+@media (max-width: 768px) {
+  :root { --header-h: 72px; }
+
+  .logo__text small { display: none; }
+  .logo__mark { width: 42px; height: 42px; }
+
+  .hero { padding-top: calc(var(--header-h) + 1.25rem); }
+  .hero__actions { flex-direction: column; align-items: stretch; }
+  .hero__actions .btn { width: 100%; justify-content: center; }
+  .hero__highlights { grid-template-columns: 1fr 1fr; }
+  .hero__dots {
+    max-height: none;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding-bottom: 0.25rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .hero__dots::-webkit-scrollbar { display: none; }
+
+  .cta-block {
+    padding: 1.75rem;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cta-block__actions { width: 100%; }
+  .cta-block__actions .btn { width: 100%; }
+
+  .mission-card { flex-direction: column; }
+  .leader-card { flex-direction: column; text-align: center; align-items: center; }
+  .leader-card__avatar { margin-inline: auto; }
+  .leader-card p { max-width: none; }
+
+  .team-filter input { max-width: none; width: 100%; }
+
+  .emergency-float {
+    bottom: calc(1rem + env(safe-area-inset-bottom));
+    right: calc(1rem + env(safe-area-inset-right));
+  }
 
   .emergency-float span:not(.emergency-float__pulse) { display: none; }
-  .emergency-float { padding: 1rem; border-radius: 50%; bottom: 1rem; right: 1rem; }
+  .emergency-float { padding: 1rem; border-radius: 50%; }
+}
 
-  .hero { min-height: auto; }
-  .cta-block { padding: 2rem; flex-direction: column; align-items: flex-start; }
+/* Small phones */
+@media (max-width: 600px) {
+  .gallery__grid { grid-template-columns: 1fr; }
+  .hero__stats { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .hero__highlights { grid-template-columns: 1fr; }
+  .facilities-grid { grid-template-columns: 1fr; }
+  .team-grid { grid-template-columns: 1fr; }
+  .footer__grid { grid-template-columns: 1fr; }
+  .trust-strip__list { gap: 0.4rem 0.6rem; }
+  .about-bento__main,
+  .quote-card,
+  .mission-card { padding: 1.35rem; }
 }
 
 @media (max-width: 480px) {
-  .hero__stats { grid-template-columns: 1fr; }
+  :root { --header-h: 68px; }
+
+  .hero h1 { font-size: 1.85rem; }
+  .hero__lead { font-size: 0.95rem; }
+  .hero__image-wrap { height: clamp(180px, 52vw, 240px); }
+  .section-head h2 { font-size: 1.65rem; }
+  .stat-card { padding: 1.1rem; }
+  .stat-card__num { font-size: 1.75rem; }
+  .nav__cta span { font-size: 0.82rem !important; }
+}
+
+@media (max-width: 360px) {
+  .logo__text strong { font-size: 0.92rem; }
+  .btn { padding: 0.8rem 1.2rem; font-size: 0.88rem; }
+  .hero__tags span { font-size: 0.72rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
