@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=2" />
+  <link rel="stylesheet" href="css/styles.css?v=3" />
 </head>
 <body>
   <div class="page-bg" aria-hidden="true">
@@ -75,10 +75,7 @@
           </div>
         </div>
         <div class="hero__visual reveal" data-delay="120">
-          <div class="hero__image-wrap">
-            <img src="assets/hero-doctor.svg" alt="Doctor illustration" width="480" height="520" loading="eager" class="hero__doctor-img" />
-            <div class="hero__image-overlay"></div>
-          </div>
+          <div class="hero__image-wrap hero__slideshow" id="hero-slideshow" aria-label="Hospital photos"></div>
           <div class="hero__float-card hero__float-card--1">
             <span class="hero__float-icon">🏥</span>
             <div>
@@ -132,6 +129,16 @@
       </div>
     </div>
 
+    <section class="gallery section" id="gallery">
+      <div class="container">
+        <div class="section-head section-head--center reveal">
+          <span class="section-head__tag">Campus</span>
+          <h2>Our Hospital</h2>
+        </div>
+        <div class="gallery__grid" id="gallery-grid"></div>
+      </div>
+    </section>
+
     <section class="highlights section">
       <div class="container">
         <ul class="highlights__grid">
@@ -169,6 +176,9 @@
           <span class="section-head__tag">About Us</span>
           <h2>Our Hospital</h2>
           <p class="section-head__desc">Multi-specialty state of the art medical center in Nagarbhavi — the only hospital within 4.5 km with all facilities under one roof.</p>
+        </div>
+        <div class="about-showcase reveal">
+          <img src="assets/images/hospital_page.jpg" alt="Gurushree Hi-Tech Multi-Speciality Hospital" width="1200" height="600" loading="lazy" class="about-showcase__img" />
         </div>
         <div class="about-bento">
           <div class="about-bento__main reveal">
@@ -223,6 +233,9 @@
 
     <section class="section" id="facilities">
       <div class="container">
+        <div class="facilities-banner reveal">
+          <img src="assets/images/facilities_page.jpg" alt="Gurushree hospital facilities" loading="lazy" />
+        </div>
         <div class="section-head reveal">
           <span class="section-head__tag">Infrastructure</span>
           <h2>World-Class Facilities</h2>
