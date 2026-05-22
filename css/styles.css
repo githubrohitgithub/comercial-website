@@ -630,22 +630,6 @@ main, .header, .footer, .emergency-float, .marquee { position: relative; z-index
 
 .gallery__item:hover img { transform: scale(1.06); }
 
-.about-showcase {
-  margin-bottom: 2rem;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--border);
-}
-
-.about-showcase__img {
-  width: 100%;
-  height: auto;
-  max-height: 420px;
-  object-fit: cover;
-  display: block;
-}
-
 .facilities-banner {
   margin-bottom: 2.5rem;
   border-radius: var(--radius-lg);
