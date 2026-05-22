@@ -1,14 +1,34 @@
+const HERO_SLIDES = [
+  { src: "assets/images/hero-ward.png", title: "Ward Suite" },
+  { src: "assets/images/photo00.jpg", title: "Gurushree Hospital" },
+  { src: "assets/images/photo02.jpg", title: "Patient Suite" },
+  { src: "assets/images/photo05.jpg", title: "Laboratory" },
+  { src: "assets/images/emergency_trauma.jpg", title: "Emergency & Trauma" },
+  { src: "assets/images/ICU-Ambulance.jpg", title: "ICU on Wheels" },
+  { src: "assets/images/ICU.jpg", title: "ICU Facilities" },
+  { src: "assets/images/Labor-ward.jpg", title: "Maternal & Foetal Care" },
+  { src: "assets/images/Geraff.jpg", title: "NICU" },
+  { src: "assets/images/Opearation-B-3.jpg", title: "Operation Theater" },
+  { src: "assets/images/aisys-work-station.jpg", title: "Anaesthesia Workstation" },
+  { src: "assets/images/dialysis.jpg", title: "Dialysis Unit" },
+  { src: "assets/images/Lab.jpg", title: "Clinical Laboratory" },
+  { src: "assets/images/X--Ray-unit.jpg", title: "Diagnostic Imaging" },
+  { src: "assets/images/Doppler.jpg", title: "Ultrasound & Doppler" },
+  { src: "assets/images/Dental.jpg", title: "Dental Care" },
+  { src: "assets/images/Ward-Suite.jpg", title: "Hospital Wards" }
+];
+
 const GALLERY_PHOTOS = [
-  { src: "assets/images/photo00.jpg", alt: "Gurushree Hospital" },
-  { src: "assets/images/photo02.jpg", alt: "Hospital view" },
-  { src: "assets/images/photo05.jpg", alt: "Hospital building" }
+  { src: "assets/images/photo00.jpg", alt: "Gurushree Hospital building", caption: "Gurushree Hospital" },
+  { src: "assets/images/photo02.jpg", alt: "Hospital patient suite", caption: "Patient Suite" },
+  { src: "assets/images/photo05.jpg", alt: "Hospital laboratory", caption: "Laboratory" }
 ];
 
 const FACILITIES = [
   { title: "Emergency Trauma & Critical Care", img: "assets/images/emergency_trauma.jpg", desc: "Committed quality care for critically ill with round the clock emergency services by professionally trained staff." },
   { title: "ICU on Wheels", img: "assets/images/ICU-Ambulance.jpg", desc: "True critical care ambulance equipped with international standard ventilator, multi-para monitor, portable defibrillator." },
   { title: "ICU Facilities", img: "assets/images/ICU.jpg", desc: "DATEX-OHEMDA-GE high end dedicated ventilator equipped state of the art ICU bed (12 nos.) duly supported by professionally trained para-medical staff deployed to each bed, monitored by experienced intensivists." },
-  { title: "Physiotherapy", img: "assets/images/facilities_page.jpg", desc: "Experienced physiotherapists with adequate facilities will supplement Physiotherapy which acts as a back bone for a true Trauma and critical care center." },
+  { title: "Physiotherapy", img: null, desc: "Experienced physiotherapists with adequate facilities will supplement Physiotherapy which acts as a back bone for a true Trauma and critical care center." },
   { title: "Maternal & Foetal Care", img: "assets/images/Labor-ward.jpg", desc: "International standard labour ward capable of handling more than one labour at a time." },
   { title: "NICU", img: "assets/images/Geraff.jpg", desc: "Six bedded NICU equipped with the ultimate Neonatal care by 3 GE-GIRAFFEs along with high end dedicated Neonatal ventilators, BILLY BLANKET, monitored round the clock by Neonatalogists. Transport Incubator facility also available." },
   { title: "Operation Theater Complex", img: "assets/images/Opearation-B-3.jpg", desc: "Two major operation theaters built to international standards (13feet high ceiling, top to bottom granite cladding). Equipped with top end operation tables, operating microscope, operating laproscope, arthroscope, C-Arm, Anaesthesia workstation (AESTIVA-AESPIRE-GE) ready to accept any type of surgery." },

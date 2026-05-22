@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Gurushree Hi-Tech Multi-Speciality Hospital — 102 bedded hospital in Chandra Layout, Bangalore. Trauma & critical care, integrated medicine." />
+  <meta name="description" content="Gurushree Hi-Tech Multi-Speciality Hospital — 200+ bedded hospital in Chandra Layout, Bangalore. Trauma & critical care, integrated medicine." />
   <title>Gurushree Hi-Tech Multi-Speciality Hospital | Chandra Layout, Bangalore</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=7" />
+  <link rel="stylesheet" href="css/styles.css?v=14" />
 </head>
 <body>
   <div class="page-bg" aria-hidden="true">
@@ -60,7 +60,7 @@
             Chandra Layout · Bangalore
           </div>
           <h1>Advanced care.<br /><em>Human touch.</em></h1>
-          <p class="hero__lead">GURUSHREE HI-TECH MULTISPECIALITY HOSPITAL — 102 bedded hospital in the heart of Chandra Layout, opposite the main bus terminal. Trauma & critical care with allopathic and integrated medicine under one roof.</p>
+          <p class="hero__lead">GURUSHREE HI-TECH MULTISPECIALITY HOSPITAL — 200+ bedded hospital in the heart of Chandra Layout, opposite the main bus terminal. Trauma & critical care with allopathic and integrated medicine under one roof.</p>
           <div class="hero__actions">
             <a href="tel:+918023392641" class="btn btn--primary btn--glow btn--phone">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
@@ -75,29 +75,41 @@
           </div>
         </div>
         <div class="hero__visual reveal" data-delay="120">
-          <div class="hero__image-wrap">
-            <img src="assets/images/hero-ward.png" alt="Gurushree Hospital ward suite" width="518" height="440" loading="eager" class="hero__photo" />
-            <div class="hero__image-overlay"></div>
-          </div>
-          <div class="hero__float-card hero__float-card--1">
-            <span class="hero__float-icon">🏥</span>
-            <div>
-              <strong>102</strong>
-              <small>Bedded Hospital</small>
+          <div class="hero__slider">
+            <div class="hero__image-wrap">
+              <div class="hero__slideshow" id="hero-slideshow" aria-live="polite"></div>
+              <div class="hero__image-overlay"></div>
+              <button type="button" class="hero__nav hero__nav--prev" id="hero-prev" aria-label="Previous image">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+              </button>
+              <button type="button" class="hero__nav hero__nav--next" id="hero-next" aria-label="Next image">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
             </div>
+            <p class="hero__slide-label" id="hero-slide-label"></p>
+            <div class="hero__dots" id="hero-dots" role="tablist" aria-label="Hospital photos"></div>
           </div>
-          <div class="hero__float-card hero__float-card--2">
-            <span class="hero__float-icon">⚡</span>
-            <div>
-              <strong>24/7</strong>
-              <small>Trauma & Emergency</small>
+          <div class="hero__highlights">
+            <div class="hero__highlight">
+              <span class="hero__highlight-icon" aria-hidden="true">🏥</span>
+              <div>
+                <strong>200+</strong>
+                <small>Bedded Hospital</small>
+              </div>
+            </div>
+            <div class="hero__highlight hero__highlight--emergency">
+              <span class="hero__highlight-icon" aria-hidden="true">⚡</span>
+              <div>
+                <strong>24/7</strong>
+                <small>Trauma & Emergency</small>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div class="hero__stats container reveal" data-delay="200">
         <div class="stat-card">
-          <span class="stat-card__num" data-count="102">0</span>
+          <span class="stat-card__num stat-card__num--static">200+</span>
           <span class="stat-card__label">Hospital Beds</span>
         </div>
         <div class="stat-card">
@@ -194,26 +206,24 @@
               <footer>Gurushree Philosophy</footer>
             </div>
           </div>
-          <div class="about-bento__ceo reveal" data-delay="150">
-            <div class="ceo-card">
-              <div class="ceo-card__avatar">RG</div>
-              <div>
-                <span class="ceo-card__role">CEO</span>
-                <strong>Dr. Rohith S.G.</strong>
-                <p>Leading Gurushree Hospital with vision and excellence.</p>
-              </div>
+        </div>
+        <div class="leadership">
+          <article class="leader-card leader-card--founder reveal" data-delay="120">
+            <div class="leader-card__avatar">SG</div>
+            <div class="leader-card__content">
+              <span class="leader-card__role">Founder & Medical Director</span>
+              <h3>Dr. S.B. Gangadhar</h3>
+              <p>25+ years of medical expertise. Every trauma case is closely monitored by the Medical Director himself.</p>
             </div>
-          </div>
-          <div class="about-bento__founder reveal" data-delay="200">
-            <div class="ceo-card ceo-card--founder">
-              <div class="ceo-card__avatar">SG</div>
-              <div>
-                <span class="ceo-card__role">Founder & Medical Director</span>
-                <strong>Dr. S.B. Gangadhar</strong>
-                <p>25+ years — closely monitors every trauma case.</p>
-              </div>
+          </article>
+          <article class="leader-card leader-card--ceo reveal" data-delay="180">
+            <div class="leader-card__avatar">RG</div>
+            <div class="leader-card__content">
+              <span class="leader-card__role">Chief Executive Officer</span>
+              <h3>Dr. Rohith S.G.</h3>
+              <p>Leading Gurushree Hospital with vision, excellence, and commitment to personalised patient care.</p>
             </div>
-          </div>
+          </article>
         </div>
         <div class="mission-card reveal" data-delay="100">
           <div class="mission-card__icon">

@@ -36,26 +36,120 @@
     return ICONS.default;
   }
 
+  const heroSlideshow = document.getElementById("hero-slideshow");
+  const heroDots = document.getElementById("hero-dots");
+  const heroLabel = document.getElementById("hero-slide-label");
+  const heroPrev = document.getElementById("hero-prev");
+  const heroNext = document.getElementById("hero-next");
   const galleryEl = document.getElementById("gallery-grid");
   const facilitiesEl = document.getElementById("facilities-grid");
   const specEl = document.getElementById("speciality-list");
   const superSpecEl = document.getElementById("super-speciality-list");
   const teamEl = document.getElementById("team-grid");
 
+  if (heroSlideshow && typeof HERO_SLIDES !== "undefined" && HERO_SLIDES.length) {
+    let heroIndex = 0;
+    let heroTimer = null;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const interval = reducedMotion ? 0 : 3000;
+
+    heroSlideshow.innerHTML = HERO_SLIDES.map(
+      (s, i) =>
+        `<div class="hero__slide${i === 0 ? " hero__slide--active" : ""}" data-index="${i}">` +
+        `<img src="${s.src}" alt="${s.title}" loading="${i === 0 ? "eager" : "lazy"}" ` +
+        `onerror="this.parentElement.remove();" /></div>`
+    ).join("");
+
+    if (heroDots) {
+      heroDots.innerHTML = HERO_SLIDES.map(
+        (_, i) =>
+          `<button type="button" class="hero__dot${i === 0 ? " hero__dot--active" : ""}" ` +
+          `data-index="${i}" aria-label="Show slide ${i + 1}" role="tab"></button>`
+      ).join("");
+    }
+
+    const slides = () => [...heroSlideshow.querySelectorAll(".hero__slide")];
+    const dots = () => (heroDots ? [...heroDots.querySelectorAll(".hero__dot")] : []);
+
+    const setHeroSlide = (index) => {
+      const list = slides();
+      if (!list.length) return;
+      heroIndex = ((index % list.length) + list.length) % list.length;
+      list.forEach((el, i) => el.classList.toggle("hero__slide--active", i === heroIndex));
+      dots().forEach((el, i) => el.classList.toggle("hero__dot--active", i === heroIndex));
+      if (heroLabel && HERO_SLIDES[heroIndex]) heroLabel.textContent = HERO_SLIDES[heroIndex].title;
+    };
+
+    const nextHero = () => setHeroSlide(heroIndex + 1);
+    const prevHero = () => setHeroSlide(heroIndex - 1);
+
+    const startHeroTimer = () => {
+      if (!interval) return;
+      stopHeroTimer();
+      heroTimer = setInterval(nextHero, interval);
+    };
+
+    const stopHeroTimer = () => {
+      if (heroTimer) clearInterval(heroTimer);
+      heroTimer = null;
+    };
+
+    setHeroSlide(0);
+    startHeroTimer();
+
+    heroNext?.addEventListener("click", () => {
+      nextHero();
+      startHeroTimer();
+    });
+    heroPrev?.addEventListener("click", () => {
+      prevHero();
+      startHeroTimer();
+    });
+    heroDots?.addEventListener("click", (e) => {
+      const btn = e.target.closest(".hero__dot");
+      if (!btn) return;
+      setHeroSlide(Number(btn.dataset.index));
+      startHeroTimer();
+    });
+    heroSlideshow.closest(".hero__slider")?.addEventListener("mouseenter", stopHeroTimer);
+    heroSlideshow.closest(".hero__slider")?.addEventListener("mouseleave", startHeroTimer);
+  }
+
   if (galleryEl && typeof GALLERY_PHOTOS !== "undefined") {
     galleryEl.innerHTML = GALLERY_PHOTOS.map(
       (p, i) =>
-        `<figure class="gallery__item reveal" data-delay="${(i % 5) * 60}">` +
-        `<img src="${p.src}" alt="${p.alt}" loading="lazy" />` +
+        `<figure class="gallery__card reveal" data-delay="${(i % 5) * 60}">` +
+        `<div class="gallery__media">` +
+        `<img src="${p.src}" alt="${p.alt}" loading="lazy" ` +
+        `onerror="this.closest('.gallery__card').classList.add('gallery__card--empty');this.remove();" />` +
+        `<span class="gallery__fallback" aria-hidden="true"></span>` +
+        `</div>` +
+        `<figcaption class="gallery__caption">${p.caption || p.alt}</figcaption>` +
         `</figure>`
     ).join("");
+  }
+
+  function facilityMedia(f) {
+    const icon = facilityIcon(f.title);
+    if (!f.img) {
+      return (
+        `<div class="facility-card__media facility-card__media--placeholder" aria-hidden="true">` +
+        `<div class="facility-card__placeholder">${icon}</div></div>`
+      );
+    }
+    return (
+      `<div class="facility-card__media">` +
+      `<img src="${f.img}" alt="${f.title}" loading="lazy" ` +
+      `onerror="this.remove();this.parentElement.classList.add('facility-card__media--placeholder');" />` +
+      `<div class="facility-card__placeholder">${icon}</div></div>`
+    );
   }
 
   if (facilitiesEl && typeof FACILITIES !== "undefined") {
     facilitiesEl.innerHTML = FACILITIES.map(
       (f, i) =>
         `<article class="facility-card reveal" data-delay="${(i % 4) * 50}">` +
-        (f.img ? `<div class="facility-card__media"><img src="${f.img}" alt="${f.title}" loading="lazy" /></div>` : "") +
+        facilityMedia(f) +
         `<div class="facility-card__body">` +
         `<div class="facility-card__top">` +
         `<div class="facility-card__icon">${facilityIcon(f.title)}</div>` +
