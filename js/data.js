@@ -1,10 +1,3 @@
-const HERO_SLIDES = [
-  { src: "assets/images/home_page.jpg", alt: "Gurushree Hospital exterior" },
-  { src: "assets/images/photo00.jpg", alt: "Gurushree Hospital" },
-  { src: "assets/images/photo02.jpg", alt: "Gurushree Hospital campus" },
-  { src: "assets/images/photo05.jpg", alt: "Gurushree Hospital building" }
-];
-
 const GALLERY_PHOTOS = [
   { src: "assets/images/photo00.jpg", alt: "Gurushree Hospital" },
   { src: "assets/images/photo02.jpg", alt: "Hospital view" },

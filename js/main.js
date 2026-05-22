@@ -36,31 +36,11 @@
     return ICONS.default;
   }
 
-  const heroSlideshow = document.getElementById("hero-slideshow");
   const galleryEl = document.getElementById("gallery-grid");
   const facilitiesEl = document.getElementById("facilities-grid");
   const specEl = document.getElementById("speciality-list");
   const superSpecEl = document.getElementById("super-speciality-list");
   const teamEl = document.getElementById("team-grid");
-
-  if (heroSlideshow && typeof HERO_SLIDES !== "undefined") {
-    heroSlideshow.innerHTML =
-      '<div class="hero__image-overlay"></div>' +
-      HERO_SLIDES.map(
-        (s, i) =>
-          `<img src="${s.src}" alt="${s.alt}" class="hero__slide${i === 0 ? " hero__slide--active" : ""}" loading="${i === 0 ? "eager" : "lazy"}" />`
-      ).join("");
-
-    const slides = heroSlideshow.querySelectorAll(".hero__slide");
-    if (slides.length > 1) {
-      let idx = 0;
-      setInterval(() => {
-        slides[idx].classList.remove("hero__slide--active");
-        idx = (idx + 1) % slides.length;
-        slides[idx].classList.add("hero__slide--active");
-      }, 4000);
-    }
-  }
 
   if (galleryEl && typeof GALLERY_PHOTOS !== "undefined") {
     galleryEl.innerHTML = GALLERY_PHOTOS.map(
@@ -192,7 +172,7 @@
   document.querySelectorAll("[data-count]").forEach((el) => countObserver.observe(el));
 
   const dynamicObserver = new MutationObserver(observeReveal);
-  [facilitiesEl, teamEl, galleryEl, heroSlideshow].forEach((el) => {
+  [facilitiesEl, teamEl, galleryEl].forEach((el) => {
     if (el) dynamicObserver.observe(el, { childList: true });
   });
 })();
