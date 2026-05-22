@@ -7,14 +7,22 @@
   <title>Gurushree Hi-Tech Multi-Speciality Hospital | Chandra Layout, Bangalore</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
+  <div class="page-bg" aria-hidden="true">
+    <div class="orb orb--1"></div>
+    <div class="orb orb--2"></div>
+    <div class="orb orb--3"></div>
+  </div>
+
   <header class="header" id="header">
-    <div class="header__inner">
-      <a href="#" class="logo">
-        <span class="logo__mark">G</span>
+    <div class="header__inner container">
+      <a href="#home" class="logo">
+        <span class="logo__mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="4"/></svg>
+        </span>
         <span class="logo__text">
           <strong>Gurushree</strong>
           <small>Hi-Tech Multi-Speciality Hospital</small>
@@ -24,79 +32,191 @@
         <span></span><span></span><span></span>
       </button>
       <nav class="nav" id="nav">
-        <a href="#about">Our Hospital</a>
-        <a href="#facilities">Facilities</a>
-        <a href="#specialities">Specialities</a>
-        <a href="#team">Our Team</a>
-        <a href="#contact">Contact</a>
-        <a href="http://gurushreehospital.appadd.in/" class="nav__cta" target="_blank" rel="noopener">Appointment</a>
+        <a href="#about" data-nav>Our Hospital</a>
+        <a href="#facilities" data-nav>Facilities</a>
+        <a href="#specialities" data-nav>Specialities</a>
+        <a href="#team" data-nav>Our Team</a>
+        <a href="#contact" data-nav>Contact</a>
+        <a href="http://gurushreehospital.appadd.in/" class="nav__cta" target="_blank" rel="noopener">
+          <span>Book Appointment</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
       </nav>
     </div>
   </header>
 
+  <a href="tel:+918023392637" class="emergency-float">
+    <span class="emergency-float__pulse"></span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+    <span>24×7 Emergency</span>
+  </a>
+
   <main>
     <section class="hero" id="home">
-      <div class="hero__bg" aria-hidden="true"></div>
-      <div class="hero__content reveal">
-        <p class="hero__eyebrow">Chandra Layout, Bangalore</p>
-        <h1>Gurushree Hi-Tech<br />Multi-Speciality Hospital</h1>
-        <p class="hero__lead">102 bedded hospital in the heart of Chandra Layout, opposite the main bus terminal — advanced trauma & critical care with allopathic and integrated medicine under one roof.</p>
-        <div class="hero__actions">
-          <a href="http://gurushreehospital.appadd.in/" class="btn btn--primary" target="_blank" rel="noopener">Book Appointment</a>
-          <a href="tel:+918023392637" class="btn btn--ghost">Emergency: 080 2339 2637</a>
+      <div class="hero__grid container">
+        <div class="hero__content reveal">
+          <div class="badge badge--hero">
+            <span class="badge__dot"></span>
+            Chandra Layout · Bangalore
+          </div>
+          <h1>Advanced care.<br /><em>Human touch.</em></h1>
+          <p class="hero__lead">GURUSHREE HI-TECH MULTISPECIALITY HOSPITAL — 102 bedded hospital in the heart of Chandra Layout, opposite the main bus terminal. Trauma & critical care with allopathic and integrated medicine under one roof.</p>
+          <div class="hero__actions">
+            <a href="http://gurushreehospital.appadd.in/" class="btn btn--primary btn--glow" target="_blank" rel="noopener">
+              Book Appointment
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#facilities" class="btn btn--outline">Explore Facilities</a>
+          </div>
+          <div class="hero__tags">
+            <span>Short stay surgeries</span>
+            <span>Minimal invasive</span>
+            <span>Integrated medicine</span>
+          </div>
+        </div>
+        <div class="hero__visual reveal" data-delay="120">
+          <div class="hero__image-wrap">
+            <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6df20?w=900&q=80" alt="Modern hospital building" width="900" height="600" loading="eager" />
+            <div class="hero__image-overlay"></div>
+          </div>
+          <div class="hero__float-card hero__float-card--1">
+            <span class="hero__float-icon">🏥</span>
+            <div>
+              <strong>102</strong>
+              <small>Bedded Hospital</small>
+            </div>
+          </div>
+          <div class="hero__float-card hero__float-card--2">
+            <span class="hero__float-icon">⚡</span>
+            <div>
+              <strong>24/7</strong>
+              <small>Trauma & Emergency</small>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="hero__stats reveal" data-delay="200">
-        <div class="stat"><span class="stat__num" data-count="102">0</span><span class="stat__label">Beds</span></div>
-        <div class="stat"><span class="stat__num" data-count="25">0</span><span class="stat__label">Years Experience</span></div>
-        <div class="stat"><span class="stat__num" data-count="25">0</span><span class="stat__label">Intensivists</span></div>
-        <div class="stat"><span class="stat__num stat__num--static">4.5</span><span class="stat__label">km Radius Coverage</span></div>
+      <div class="hero__stats container reveal" data-delay="200">
+        <div class="stat-card">
+          <span class="stat-card__num" data-count="102">0</span>
+          <span class="stat-card__label">Hospital Beds</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-card__num" data-count="25">0</span>
+          <span class="stat-card__label">Years Experience</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-card__num" data-count="25">0</span>
+          <span class="stat-card__label">Intensivists</span>
+        </div>
+        <div class="stat-card stat-card--accent">
+          <span class="stat-card__num stat-card__num--static">4.5</span>
+          <span class="stat-card__label">km Service Radius</span>
+        </div>
       </div>
     </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>GE Ventilator ICU</span><span>•</span>
+        <span>Siemens Diagnostics</span><span>•</span>
+        <span>NICU · Dialysis · OT Complex</span><span>•</span>
+        <span>Personalised Care</span><span>•</span>
+        <span>Preventive Health Programs</span><span>•</span>
+        <span>ICU on Wheels</span><span>•</span>
+        <span>GE Ventilator ICU</span><span>•</span>
+        <span>Siemens Diagnostics</span><span>•</span>
+        <span>NICU · Dialysis · OT Complex</span><span>•</span>
+        <span>Personalised Care</span><span>•</span>
+        <span>Preventive Health Programs</span><span>•</span>
+        <span>ICU on Wheels</span><span>•</span>
+      </div>
+    </div>
 
     <section class="highlights section">
       <div class="container">
         <ul class="highlights__grid">
-          <li class="highlight-card reveal">
-            <span class="highlight-card__icon" aria-hidden="true">◆</span>
+          <li class="feature-card reveal">
+            <div class="feature-card__icon feature-card__icon--teal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
             <h3>Short Stay Surgeries</h3>
-            <p>Efficient care designed to get you home sooner.</p>
+            <p>Efficient care designed to get you home sooner with expert post-operative support.</p>
+            <span class="feature-card__line"></span>
           </li>
-          <li class="highlight-card reveal" data-delay="100">
-            <span class="highlight-card__icon" aria-hidden="true">◆</span>
+          <li class="feature-card reveal" data-delay="100">
+            <div class="feature-card__icon feature-card__icon--gold">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </div>
             <h3>Minimal Invasive Surgeries</h3>
-            <p>Advanced techniques for faster recovery.</p>
+            <p>Advanced techniques for faster recovery and reduced hospital stay.</p>
+            <span class="feature-card__line"></span>
           </li>
-          <li class="highlight-card reveal" data-delay="200">
-            <span class="highlight-card__icon" aria-hidden="true">◆</span>
+          <li class="feature-card reveal" data-delay="200">
+            <div class="feature-card__icon feature-card__icon--coral">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+            </div>
             <h3>Trauma & Critical Care</h3>
-            <p>Round-the-clock emergency with trained staff.</p>
+            <p>Round-the-clock emergency with professionally trained staff and ICU on Wheels.</p>
+            <span class="feature-card__line"></span>
           </li>
         </ul>
       </div>
     </section>
 
-    <section class="section section--alt" id="about">
+    <section class="section section--cream" id="about">
       <div class="container">
-        <div class="section-head reveal">
+        <div class="section-head section-head--center reveal">
           <span class="section-head__tag">About Us</span>
           <h2>Our Hospital</h2>
+          <p class="section-head__desc">Multi-specialty state of the art medical center in Nagarbhavi — the only hospital within 4.5 km with all facilities under one roof.</p>
         </div>
-        <div class="about-grid">
-          <div class="about-copy reveal">
+        <div class="about-bento">
+          <div class="about-bento__main reveal">
             <p>25 years of medical experience and expertise of the founder <strong>Dr. S.B. Gangadhar</strong> at Gurushree hospital has resulted in a much needed multi specialty state of the art, all in one medical center with highly qualified specialist doctors, trained paramedical staff and A-1 grade in-patient and out-patient facilities.</p>
-            <p>Diagnostics & assessments are the root of preventive health check up programmes that Gurushree banks upon. Exceptional clinical success rates, centuries old traditional care & warmth, but with superior technology induces one to believe that the world is an extended family — the philosophy that Gurushree believes.</p>
-            <p>Gurushree hi-tech multi speciality hospital is the only multi speciality hospital around Vijaynagar, Magadi road and Nagarbhavi within a radius of 4.5 km having facilities under one roof.</p>
-            <p class="about-copy__ceo"><strong>Dr. Rohith S.G.</strong> is the CEO of Gurushree Hospital.</p>
+            <p>Diagnostics & assessments are the root of preventive health check up programmes that Gurushree banks upon. Exceptional clinical success rates, centuries old traditional care & warmth, but with superior technology — the philosophy that Gurushree believes.</p>
+            <div class="about-pills">
+              <span>Vijaynagar</span>
+              <span>Magadi Road</span>
+              <span>Nagarbhavi</span>
+              <span>All under one roof</span>
+            </div>
           </div>
-          <blockquote class="about-quote reveal" data-delay="150">
-            <p>True to the spirit of Hospitality — <em>'Personalised Care'</em> experienced on hospitalisation by the patients gives the hospital an extra edge.</p>
-            <footer>— Gurushree Philosophy</footer>
-          </blockquote>
+          <div class="about-bento__quote reveal" data-delay="100">
+            <div class="quote-card">
+              <svg class="quote-card__mark" viewBox="0 0 48 48" fill="currentColor"><path d="M14 28c0-6 4-10 10-10V12C14 12 6 20 6 30v6h14v-8H14zm24 0c0-6 4-10 10-10V12C38 12 30 20 30 30v6h14v-8H38z"/></svg>
+              <p>True to the spirit of Hospitality — <em>'Personalised Care'</em> experienced on hospitalisation gives the hospital an extra edge.</p>
+              <footer>Gurushree Philosophy</footer>
+            </div>
+          </div>
+          <div class="about-bento__ceo reveal" data-delay="150">
+            <div class="ceo-card">
+              <div class="ceo-card__avatar">RG</div>
+              <div>
+                <span class="ceo-card__role">CEO</span>
+                <strong>Dr. Rohith S.G.</strong>
+                <p>Leading Gurushree Hospital with vision and excellence.</p>
+              </div>
+            </div>
+          </div>
+          <div class="about-bento__founder reveal" data-delay="200">
+            <div class="ceo-card ceo-card--founder">
+              <div class="ceo-card__avatar">SG</div>
+              <div>
+                <span class="ceo-card__role">Founder & Medical Director</span>
+                <strong>Dr. S.B. Gangadhar</strong>
+                <p>25+ years — closely monitors every trauma case.</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="mission reveal" data-delay="100">
-          <p>Importance of 'Health' is often realised during acute sickness. Saving time is saving a life. Gurushree Hi-Tech Multi-Speciality Hospital is nestled in the picturesque range of the silicon valley of India, neighbouring the Gnanabharathi University Campus popularly known as <strong>'Nagarbhavi'</strong>.</p>
-          <p>Good Health is a priceless asset! Gurushree offers a complete range of preventive and health maintenance programs, specially designed to provide you wellness and good health.</p>
+        <div class="mission-card reveal" data-delay="100">
+          <div class="mission-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          </div>
+          <div>
+            <h3>Wellness & Preventive Care</h3>
+            <p>Good Health is a priceless asset! Gurushree offers a complete range of preventive and health maintenance programs, nestled near Gnanabharathi University Campus — <strong>'Nagarbhavi'</strong>. Saving time is saving a life.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -105,27 +225,34 @@
       <div class="container">
         <div class="section-head reveal">
           <span class="section-head__tag">Infrastructure</span>
-          <h2>Our Facilities</h2>
-          <p class="section-head__desc">State-of-the-art equipment and professionally trained staff under one roof.</p>
+          <h2>World-Class Facilities</h2>
+          <p class="section-head__desc">State-of-the-art equipment and professionally trained staff — DATEX-OHEMDA-GE, Siemens, GE-GIRAFFE & more.</p>
         </div>
         <div class="facilities-grid" id="facilities-grid"></div>
       </div>
     </section>
 
-    <section class="section section--alt" id="specialities">
+    <section class="section section--gradient" id="specialities">
       <div class="container">
-        <div class="section-head reveal">
+        <div class="section-head section-head--light reveal">
           <span class="section-head__tag">Care</span>
           <h2>Medical Specialities</h2>
+          <p class="section-head__desc">Comprehensive specialities and super-specialities under one trusted roof.</p>
         </div>
-        <div class="spec-columns">
-          <div class="spec-block reveal">
-            <h3>Speciality</h3>
-            <ul class="spec-list" id="speciality-list"></ul>
+        <div class="spec-panels">
+          <div class="spec-panel reveal">
+            <div class="spec-panel__head">
+              <span class="spec-panel__num">15+</span>
+              <h3>Speciality</h3>
+            </div>
+            <div class="spec-chips" id="speciality-list"></div>
           </div>
-          <div class="spec-block reveal" data-delay="120">
-            <h3>Super-Speciality</h3>
-            <ul class="spec-list" id="super-speciality-list"></ul>
+          <div class="spec-panel spec-panel--gold reveal" data-delay="120">
+            <div class="spec-panel__head">
+              <span class="spec-panel__num">11+</span>
+              <h3>Super-Speciality</h3>
+            </div>
+            <div class="spec-chips" id="super-speciality-list"></div>
           </div>
         </div>
       </div>
@@ -136,57 +263,83 @@
         <div class="section-head reveal">
           <span class="section-head__tag">Experts</span>
           <h2>Our Team</h2>
-          <p class="section-head__desc">Gurushree is a well known Trauma centre. The reason behind the success is our team of Doctors.</p>
+          <p class="section-head__desc">25 intensivists round the clock · 10 bed ICU with GE ventilators · Neuro to Plastic surgery.</p>
         </div>
-        <p class="team-intro reveal">We have a team of 25 well qualified intensivists who work round the clock enabling us to take up any kind of Trauma cases. The 10 beded ICU setup with top of the line GE ventilators supporting each bed helps us achieve quick & safe recovery. Every case is closely monitored by the Medical Director <strong>Dr. S.B. Gangadhar</strong>.</p>
+        <p class="team-banner reveal">Every case is closely monitored by Medical Director <strong>Dr. S.B. Gangadhar</strong> — Gurushree is a well known Trauma centre.</p>
+        <div class="team-filter reveal" data-delay="80">
+          <input type="search" id="team-search" placeholder="Search department or doctor..." aria-label="Search team" />
+        </div>
         <div class="team-grid" id="team-grid"></div>
       </div>
     </section>
 
-    <section class="section section--alt" id="patients">
+    <section class="section section--cream" id="patients">
       <div class="container">
-        <div class="section-head reveal">
-          <span class="section-head__tag">Trust</span>
-          <h2>Patient's Speak</h2>
-        </div>
-        <p class="patients-note reveal">Personalised care and clinical excellence define the Gurushree experience. For appointments and enquiries, reach us by phone or visit our hospital at Chandra Layout.</p>
-        <div class="cta-banner reveal" data-delay="100">
-          <p>Your health is priceless. Let us help you protect it.</p>
-          <a href="http://gurushreehospital.appadd.in/" class="btn btn--primary" target="_blank" rel="noopener">Schedule Appointment</a>
+        <div class="cta-block reveal">
+          <div class="cta-block__content">
+            <span class="section-head__tag">Patient's Speak</span>
+            <h2>Your health is priceless</h2>
+            <p>Personalised care and clinical excellence define the Gurushree experience. Reach us at Chandra Layout for appointments and enquiries.</p>
+          </div>
+          <div class="cta-block__actions">
+            <a href="http://gurushreehospital.appadd.in/" class="btn btn--white btn--glow" target="_blank" rel="noopener">Schedule Appointment</a>
+            <a href="tel:+919449814842" class="btn btn--ghost-white">Call +91 94498 14842</a>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section contact-section" id="contact">
+    <section class="section" id="contact">
       <div class="container">
         <div class="section-head reveal">
           <span class="section-head__tag">Reach Us</span>
-          <h2>Contact</h2>
+          <h2>Contact & Location</h2>
         </div>
-        <div class="contact-grid">
-          <div class="contact-card reveal">
-            <h3>Address</h3>
-            <address>
-              Gurushree Hi-Tech Multi Speciality Hospital<br />
-              No.1558, Opp. Chandra Layout Bus Stand<br />
-              Chandra Layout, Vijaynagar<br />
-              Bangalore — 560 040
-            </address>
+        <div class="contact-layout">
+          <div class="contact-cards">
+            <div class="contact-card reveal">
+              <div class="contact-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </div>
+              <h3>Address</h3>
+              <address>
+                Gurushree Hi-Tech Multi Speciality Hospital<br />
+                No.1558, Opp. Chandra Layout Bus Stand<br />
+                Chandra Layout, Vijaynagar<br />
+                Bangalore — 560 040
+              </address>
+            </div>
+            <div class="contact-card reveal" data-delay="80">
+              <div class="contact-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              </div>
+              <h3>Phone</h3>
+              <ul class="contact-phones">
+                <li><a href="tel:+919449814842">+91 94498 14842</a></li>
+                <li><a href="tel:+918023392641">+91 80 2339 2641</a></li>
+                <li><a href="tel:+919886692641">+91 98866 92641</a></li>
+                <li><a href="tel:+918023392637">+91 80 2339 2637</a></li>
+                <li><a href="tel:+918023392630">+91 80 2339 2630</a></li>
+              </ul>
+            </div>
+            <div class="contact-card reveal" data-delay="160">
+              <div class="contact-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              </div>
+              <h3>Email & Web</h3>
+              <p><a href="mailto:info@gurushreehospital.com">info@gurushreehospital.com</a></p>
+              <p><a href="https://gurushreehospital.com/" target="_blank" rel="noopener">www.gurushreehospital.com</a></p>
+            </div>
           </div>
-          <div class="contact-card reveal" data-delay="80">
-            <h3>Phone</h3>
-            <ul class="contact-phones">
-              <li><a href="tel:+919449814842">+91 94498 14842</a></li>
-              <li><a href="tel:+918023392641">+91 80 2339 2641</a></li>
-              <li><a href="tel:+919886692641">+91 98866 92641</a></li>
-              <li><a href="tel:+918023392637">+91 80 2339 2637</a></li>
-              <li><a href="tel:+918023392630">+91 80 2339 2630</a></li>
-            </ul>
-          </div>
-          <div class="contact-card reveal" data-delay="160">
-            <h3>Email & Web</h3>
-            <p><a href="mailto:info@gurushreehospital.com">info@gurushreehospital.com</a></p>
-            <p><a href="https://gurushreehospital.com/" target="_blank" rel="noopener">www.gurushreehospital.com</a></p>
+          <div class="map-wrap reveal" data-delay="100">
+            <iframe
+              title="Gurushree Hospital location"
+              src="https://maps.google.com/maps?q=Gurushree+Hi-Tech+Hospital+Chandra+Layout+Bangalore+560040&hl=en&z=15&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+            ></iframe>
+            <a href="https://maps.google.com/?q=Gurushree+Hospital+Chandra+Layout+Bangalore" class="map-wrap__link" target="_blank" rel="noopener">Open in Google Maps →</a>
           </div>
         </div>
       </div>
@@ -194,9 +347,24 @@
   </main>
 
   <footer class="footer">
-    <div class="container footer__inner">
-      <p>&copy; Gurushree Hi-Tech Multi-Speciality Hospital, Chandra Layout, Bangalore</p>
-      <a href="tel:+918023392637" class="footer__emergency">24×7: 080 2339 2637</a>
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <strong>Gurushree Hospital</strong>
+        <p>Hi-Tech Multi-Speciality · Chandra Layout, Bangalore</p>
+      </div>
+      <div class="footer__links">
+        <a href="#about">About</a>
+        <a href="#facilities">Facilities</a>
+        <a href="#contact">Contact</a>
+        <a href="http://gurushreehospital.appadd.in/" target="_blank" rel="noopener">Appointment</a>
+      </div>
+      <a href="tel:+918023392637" class="footer__emergency">
+        <span>24×7 Emergency Line</span>
+        <strong>080 2339 2637</strong>
+      </a>
+    </div>
+    <div class="container footer__copy">
+      <p>&copy; Gurushree Hi-Tech Multi-Speciality Hospital. All rights reserved.</p>
     </div>
   </footer>
 
